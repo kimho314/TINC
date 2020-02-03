@@ -1,4 +1,6 @@
-// ------프로필 사진 변경------------
+
+
+// ------프로필 사진 변경------------저장하기 해야함
 $(function(){
     $("#myProfileImage").click(function(){
         $("#mpImg").click().change(function(event){
