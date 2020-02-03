@@ -1,5 +1,9 @@
 package com.tinc.web.controller;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
@@ -7,8 +11,9 @@ import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -17,7 +22,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,10 +32,12 @@ import com.google.gson.Gson;
 import com.tinc.web.entity.BlackList;
 import com.tinc.web.entity.ChattingRoom;
 import com.tinc.web.entity.FriendsList;
+import com.tinc.web.entity.GroupMemoList;
 import com.tinc.web.entity.Member;
 import com.tinc.web.entity.MemberRole;
 import com.tinc.web.entity.PrivateMemoList;
 import com.tinc.web.service.ChattingService;
+import com.tinc.web.service.GroupMemoListService;
 import com.tinc.web.service.MemberService;
 import com.tinc.web.service.PrivateMemoListService;
 
@@ -47,6 +53,8 @@ public class MemberController {
 	private PrivateMemoListService memoService;
 	@Autowired
 	private ChattingService chattingService;
+	@Autowired
+	private GroupMemoListService groupMemoListService;
 	
 	@GetMapping("main")
 	   public String main() {
@@ -67,6 +75,57 @@ public class MemberController {
 		return "member/friendList";
 	}
 	
+	@ResponseBody
+	@PostMapping("friendList")
+	public String friendList(
+			@RequestParam(name = "friendsId" , required = false) String friendsId,
+			@RequestParam(name = "cmd" , required = false) String cmd,
+			BlackList blackList,
+			FriendsList friendsList,
+			Principal principal,
+			HttpServletRequest request) {
+		String memberId = principal.getName();
+		
+		blackList.setMemberId(memberId);
+		blackList.setBlackId(friendsId);
+		friendsList.setMemberId(memberId);
+		friendsList.setFriendsId(friendsId);
+		System.out.println(memberId+cmd+friendsId);
+		
+		if(friendsId != null && cmd!=null) {
+			switch (cmd) {
+				case "chatting":
+					int dupliRoomId = chattingService.isDuplicatedRoom(memberId,friendsId);
+					if(dupliRoomId != 0) {
+						String roomId = String.valueOf(dupliRoomId);
+						return "../../chat/"+roomId+"";
+					}else {
+						int chatId = 0;
+						Member my = service.get(memberId);
+						Member m = service.get(friendsId);
+						String title = my.getNickName()+", "+m.getNickName();
+						int result = chattingService.createChattingRoom(new ChattingRoom(memberId,title));// 방장 먼저 개설	
+						
+						if(result == 1) {
+							chatId = chattingService.getChattingRoomId(memberId); // 개설한 채팅 아이디가져오기
+							chattingService.inviteMember(chatId, friendsId); // 초대 완료 
+							groupMemoListService.insert(new GroupMemoList(title,chatId,memberId));
+							groupMemoListService.insert(new GroupMemoList(title,chatId,friendsId));
+							mkFile(memberId,chatId,request);
+							mkFile(friendsId,chatId,request);
+						}
+						String chattingId = String.valueOf(chatId);
+						return "../../chat/"+chattingId+"";
+					}
+			case "block":
+				service.deleteFriend(friendsList);
+				service.blockUser(blackList);
+				break;
+			}
+		}
+		return "member/friendList";
+	}
+	
 	@GetMapping("friendSetting")
 	public String friendSetting(Principal principal, Model model) {
 		
@@ -82,7 +141,7 @@ public class MemberController {
 	public String friendSetting( 
 			@RequestParam(name = "friendsId" , required = false) String friendsId,
 			@RequestParam(name = "cmd" , required = false) String cmd,
-			FriendsList friendList, 
+			FriendsList friendsList, 
 			BlackList blackList,
 			Principal principal) 
 		{
@@ -90,8 +149,8 @@ public class MemberController {
 		String blackId = friendsId;
 		System.out.println(memberId+","+friendsId);
 		
-		friendList.setMemberId(memberId);
-		friendList.setFriendsId(friendsId);
+		friendsList.setMemberId(memberId);
+		friendsList.setFriendsId(friendsId);
 		blackList.setMemberId(memberId);
 		blackList.setBlackId(blackId);
 		
@@ -100,17 +159,18 @@ public class MemberController {
 			switch (cmd) {
 			case "userIhaveblocked-add":
 				int result1 = service.unblockUser(blackList);
-				int result2 = service.addFriend(friendList);
+				int result2 = service.addFriend(friendsList);
 				System.out.println("result1:"+result1+"result2:"+result2);
 				break;
 			case "userIhaveblocked-unblock":
 				service.unblockUser(blackList);
 				break;
 			case "userWhoHaveAddedMe-add":
-				int result = service.addFriend(friendList);
+				int result = service.addFriend(friendsList);
 				System.out.println(result);
 				break;
 			case "userWhoHaveAddedMe-block":
+				service.deleteFriend(friendsList);
 				service.blockUser(blackList);
 				break;
 			}
@@ -254,6 +314,24 @@ public class MemberController {
 			mailSender.send(message);  //얘 객체생성하는 config파일 있어야됨 
 		}
 		return gsonfindedId;
+	}
+	
+	public void mkFile(String userId,int chatId,HttpServletRequest request) {
+		//파일 만들기 
+		String filePath = "/WEB-INF/storage/chat";
+		String fileName = userId+chatId+".json";
+		ServletContext application = request.getServletContext();
+		String realPath = application.getRealPath(filePath);		
+		try {
+			File file = new File(realPath);
+			
+			if(!file.exists())
+				file.mkdirs();
+			
+			FileWriter fos = new FileWriter(realPath+File.separator+fileName);
+			fos.close();
+			//System.out.println(realPath+File.separator+fileName);
+		} catch (IOException e) {}
 	}
 	
 }
