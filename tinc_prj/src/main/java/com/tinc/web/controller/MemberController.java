@@ -118,8 +118,14 @@ public class MemberController {
 						return "../../chat/"+chattingId+"";
 					}
 			case "block":
-				service.deleteFriend(friendsList);
-				service.blockUser(blackList);
+				int result1 = service.deleteFriend(friendsList);
+				int result2 = service.blockUser(blackList);
+				if(result1 == 1 && result2 == 1) {
+					friendsList.setMemberId(friendsId);
+					friendsList.setFriendsId(memberId);
+					int result3 = service.deleteFriend(friendsList);
+					System.out.println(result1+","+result2+","+result3);
+				}
 				break;
 			}
 		}
@@ -170,8 +176,14 @@ public class MemberController {
 				System.out.println(result);
 				break;
 			case "userWhoHaveAddedMe-block":
-				service.deleteFriend(friendsList);
-				service.blockUser(blackList);
+				int result3 = service.deleteFriend(friendsList);
+				int result4 = service.blockUser(blackList);
+				if(result3 == 1 && result4 == 1) {
+					friendsList.setMemberId(friendsId);
+					friendsList.setFriendsId(memberId);
+					int result5 = service.deleteFriend(friendsList);
+					System.out.println(result3+","+result4+","+result5);
+				}
 				break;
 			}
 		}

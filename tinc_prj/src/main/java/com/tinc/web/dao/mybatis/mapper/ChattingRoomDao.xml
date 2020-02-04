@@ -25,7 +25,7 @@
  	INSERT INTO ChattingRoom VALUES (#{id},#{memberId},#{title},#{owner},#{authority},#{notice},#{meg})
  </insert>
  <insert id="createRoom" parameterType="com.tinc.web.entity.ChattingRoom">
- 	INSERT INTO ChattingRoom VALUES ((SELECT id FROM (SELECT COALESCE(MAX(id), 0)+1 id FROM ChattingRoom) as temp),#{memberId},#{title},1,"초대","","")
+ 	INSERT INTO ChattingRoom VALUES ((SELECT id FROM (SELECT COALESCE(MAX(id), 0)+1 id FROM ChattingRoom) as temp),#{memberId},#{title},1,"초대","",0)
  </insert>
   <update id="update" parameterType="com.tinc.web.entity.ChattingRoom">
  	UPDATE ChattingRoom SET title=#{title},owner=#{owner},authority=#{authority} WHERE memberId=#{memberId} and id=#{id}

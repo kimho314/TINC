@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <link rel="stylesheet" href="../../../resource/css/common.css?x" >
 <link rel="stylesheet" href="../../../resource/css/bottomButton.css">
-<link rel="stylesheet" href="../../../resource/css/member/member.css?xxxx" >
+<link rel="stylesheet" href="../../../resource/css/member/member.css?xxxxxx" >
 <link rel="stylesheet" href="../../../resource/css/chatting/chat.css?x">
 <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -76,6 +76,9 @@
 			 <c:if test="${empty friendsProfile}">
 			 	<p class="no-friend">아래의 친구 추가를<br>눌러 친구를 추가해 보세요.</p> 
 			 </c:if>
+			 <div id="anno" style="display:none">
+				추가							
+			</div>
 		 <div class="bottombutton">
 			<button type="button" class="btn on" onclick="location.href='addFriend'">
 				<!-- <i class="fas fa-user">친구목록</i>  -->
@@ -127,7 +130,6 @@
 	<div class="mask"></div>
 	<script type="text/javascript">
 		$('[id^=img]').on('click',function(e){ 
-			
 			$('.popup').css("display", "block");
 			$('.mask').css("display", "block");
 			
@@ -138,14 +140,14 @@
 			$('#popId').html($(e.target).data('nickname'));
 			$('#popupStatusMsg').html($(e.target).data('statusmsg'));
 			
-			$('#block').on('click',function(e){ 
+			$('#block').off("click").on('click',function(e){ 
 				var cmd = 'block';
 		        console.log(cmd+friendsId);
 		        $.post("${pageContext.request.contextPath}/member/friendList", {friendsId : friendsId, cmd : cmd});
 		        $('.popup').css("display", "none");
 				$('.mask').css("display", "none");
 				$("#friendsId"+friendsId).remove();
-				
+	      		$(function(){infobox('차단되었습니다.');});
 			});
 			
 			$('#chatting').on('click',function(e){ 
@@ -157,6 +159,11 @@
 			});
 			
 		});
+		
+		function infobox(txt){
+			$("#anno").html(txt);
+			$("#anno").fadeIn().delay(2000).fadeOut();
+		}
 	</script>
 </body>
 </html>

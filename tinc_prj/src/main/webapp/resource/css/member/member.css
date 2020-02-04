@@ -100,3 +100,10 @@ input[type="tel"] {width: calc(100% - 1.641rem); padding:0 0.9375rem; box-sizing
 .main input[type="text"] {color: #fff; text-align: center; margin-bottom: 0.625rem; margin-bottom: 0.625rem; padding:0 0.9375rem; box-sizing:border-box; background: #000; background-color: rgba( 0, 0, 0, 0.2 ); border-radius: 2.5rem;}
 .main input[type="password"] {color: #fff; text-align: center; margin-bottom: 0.625rem; margin-bottom: 0.625rem; padding:0 0.9375rem; box-sizing:border-box; background: #000; background-color: rgba( 0, 0, 0, 0.2 ); border-radius: 2.5rem;}
 .main input[type="submit"] {margin-bottom: 0.625rem; width: calc(100% - 1.641rem); padding:0 0.9375rem; box-sizing:border-box; color:#000; height: 3.313rem; background: #fff; border-radius: 2.5rem;}
+
+#anno{position:absolute;top:0;left:0;width:100%;background:#ebeafd;color:#7367f0;text-align:center;font-size:1em;line-height:3em;height:3em}
+
+/* background:rgba(0,0,0,.75) #ebeafd*/
+
+
+
