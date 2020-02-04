@@ -17,6 +17,7 @@
 }
 
 .close-button-wrapper>i {
+  color: #b2b2b2;
   position: absolute;
   right: 20%;
   top: 30%;
