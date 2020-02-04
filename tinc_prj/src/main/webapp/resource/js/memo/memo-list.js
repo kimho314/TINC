@@ -14,7 +14,7 @@ function showMemoCard() {
 				e.stopPropagation();
 
 				if (isTitleChanged) {
-					createNewMemoCard(e.target.parentNode.parentNode.parentNode);					
+					createNewMemoCard(e.target.parentNode.parentNode.parentNode);
 				}
 
 				if (!isTitleChanged) {
@@ -28,6 +28,8 @@ function showMemoCard() {
 						let newDoc = document.open(oldUrl, "replace");
 						newDoc.write(data);
 						newDoc.close();
+
+						history.pushState(null, null, url);
 					});
 				}
 			});

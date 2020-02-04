@@ -1,4 +1,3 @@
-var shareOpt = 0;
 var gsIdList = [];
 var fsIdList = [];
 
@@ -144,10 +143,12 @@ function getShareIds() {
 }
 
 function shareMemo() {
+
     let mcId = $(".memo-share-content > input[name=\"memo-card-id\"]").val();
 
     $(".memo-share-visual > div > i").off("click").click(function (e) {
-        if (shareOpt == 0) {
+        console.log(gsIdList.length + "," + fsIdList.length);
+        if (gsIdList.length > 0 || fsIdList.length > 0) {
             let mcId = $("input[name=\"memo-card-id\"]").val();
             let sendShareData = JSON.stringify({
                 mcId: mcId,
@@ -178,6 +179,7 @@ function shareMemo() {
                     let newDoc = document.open(oldUrl, "replace");
                     newDoc.write(data);
                     newDoc.close();
+                    history.pushState(null, null, url);
                 });
             }
             request.send(sendShareData);

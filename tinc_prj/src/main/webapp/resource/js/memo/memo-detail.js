@@ -37,13 +37,14 @@ window.addEventListener("load", function () {
         this.clearTimeout(detailCloseTid);
         this.clearInterval(tid);
         delCookie("cardId");
-        //let url = "/memo/list";
-        let url = window.location.pathname + window.location.search;
+        let url = "/memo/list";
+        //let url = window.location.pathname + window.location.search;
         $.get(url, function (data) {
             //console.log(data);
             let newDoc = document.open(url, "replace");
             newDoc.write(data);
             newDoc.close();
+            history.pushState(null, null, url);
         });
     });
 
@@ -72,6 +73,7 @@ window.addEventListener("load", function () {
             let newDoc = document.open(oldUrl, "replace");
             newDoc.write(data);
             newDoc.close();
+            history.pushState(null, null, url);
         });
     });
 
@@ -90,13 +92,14 @@ window.addEventListener("load", function () {
             delCookie("cardId");
             if (receivedMsg === "del-memo-card success") {
                 //window.location.href = "../../../../memo/list";
-                //let url = "/memo/list";
-                let url = window.location.pathname + window.location.search;
+                let url = "/memo/list";
+                //let url = window.location.pathname + window.location.search;
                 $.get(url, function (data) {
                     //console.log(data);
                     let newDoc = document.open(url, "replace");
                     newDoc.write(data);
                     newDoc.close();
+                    history.pushState(null, null, url);
                 });
             }
         };
