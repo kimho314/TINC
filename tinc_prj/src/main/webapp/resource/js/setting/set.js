@@ -1,4 +1,26 @@
 
+        function fileUpload(e) {
+          let file = $("#mpImg")[0].files[0];
+          let form = $("#settingFileForm")[0];
+          let formData = new FormData(form);
+          formData.append("file", file);
+          
+          if (file.size > 1020 * 1020 * 100) {
+            percent.html("용량초과");
+            return;
+          }
+
+          $.ajax({
+            url:"",
+            processData: false,
+            contentType: false,
+            data: formData,
+            dataType: "text",
+            type: "POST",
+            success: function() {
+            }
+          });
+        }
 
 // ------프로필 사진 변경------------저장하기 해야함
 $(function(){
@@ -16,6 +38,7 @@ $(function(){
             }
             console.log("hi4");
             reader.readAsDataURL(input.files[0]);
+          fileUpload();
         })
     })
 })

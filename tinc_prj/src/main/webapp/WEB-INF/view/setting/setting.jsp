@@ -25,10 +25,16 @@
          </div>
          
          <!-- 프로필 이미지 -->
+         <form 
+         action=""
+         id="settingFileForm"
+         enctype="multipart/form-data"
+         method="POST">
          <input type='file' accept='image/*' id='mpImg' style="display:none;">
          <div id="setMyImg">
 		 	<img id='myProfileImage' src="/resource/images/profile.jpg">
          </div>
+         </form>
          
          <div><input id="myId" type="text" value="${myprofile.nickName}"></div>
          <div><input id="myStatusMessage" type="text" placeholder="${myprofile.statusMsg}" value=""></div>
