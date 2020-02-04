@@ -42,7 +42,7 @@
 								<i class="fas fa-user"></i>
 								</c:if>
 								<c:if test="${not empty gsm.profileImg}">
-								 <img src="../../../resource/images/${gs.profileImg}">
+								 <img src="../../../resource/images/${gsm.profileImg}">
 								</c:if>
 								</c:if>
 								</c:forEach>

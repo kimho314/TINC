@@ -1,3 +1,5 @@
+var detailCloseTid;
+
 window.addEventListener("load", function () {
 
     // detail 내용 크기 자동 조절
@@ -11,7 +13,7 @@ window.addEventListener("load", function () {
         $(".popup").fadeIn();
         $(".mask").fadeIn();
 
-        this.setTimeout(() => {
+        detailCloseTid = this.setTimeout(() => {
             $(".share-popup").fadeOut();
             $(".popup").fadeOut();
             $(".mask").fadeOut();
@@ -32,6 +34,8 @@ window.addEventListener("load", function () {
 
     // detail창 닫기 버튼
     $("#memo-detail-close-icon").off("click").click((e) => {
+        this.clearTimeout(detailCloseTid);
+        this.clearInterval(tid);
         delCookie("cardId");
         //let url = "/memo/list";
         let url = window.location.pathname + window.location.search;
@@ -73,9 +77,12 @@ window.addEventListener("load", function () {
 
     // 메모 삭제
     $(".memo-detail-delete-button").off("click").click((e) => {
-        let mcId = $("input[name=\"memo-detail-id\"]").val();
+        this.clearTimeout(detailCloseTid);
+        this.clearInterval(tid);
 
+        let mcId = $("input[name=\"memo-detail-id\"]").val();
         let request = new XMLHttpRequest();
+
         request.open("GET", "../../../../memo/del-memo-card/" + mcId);
         request.onload = function () {
             let receivedMsg = request.responseText;
