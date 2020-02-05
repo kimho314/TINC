@@ -21,7 +21,7 @@ function showMemoCard() {
 					let cardId = e.target.parentNode.previousElementSibling.children[1].value;
 					let url = "/memo/detail?cardId=" + cardId;
 					let oldUrl = window.location.pathname + window.location.search;
-					console.log(oldUrl);
+					//console.log(oldUrl);
 					//window.location.href = url;
 					$.get(url, function (data) {
 						//console.log(data);
@@ -46,12 +46,12 @@ function addMemoCard() {
 		let clonedMemoCard = document.importNode(memoCardTemplate.content, true);
 
 		memoCardListWrapperElem.append(clonedMemoCard);
-		enterMemoCardTitle(memoCardListWrapperElem);
+		inputMemoCardTitle(memoCardListWrapperElem);
 	});
 }
 
 
-function enterMemoCardTitle(Elem) {
+function inputMemoCardTitle(Elem) {
 	let privateMemoCardId;
 	let groupMemoCardId;
 	let MemoCards = Elem.querySelectorAll(".memo-card");
@@ -59,6 +59,8 @@ function enterMemoCardTitle(Elem) {
 	let newMemoCardTitle = newMemoCard.querySelector(".memo-card-title input[name=\"memo-card-title\"]");
 	let newMomoCardContent = newMemoCard.querySelector(".memo-card-content .memo-card-content-textarea");
 
+	$(Elem).animate({ 
+		scrollTop: $(newMemoCard).offset().top }, 500);
 
 	$(newMemoCardTitle).focus();
 	let isTitleAvailable = new Promise(function (resolve, reject) {
