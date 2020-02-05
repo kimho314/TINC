@@ -113,6 +113,10 @@
 		select id from Member where email=#{email}; 
 	</select>
 	
+	<select id="findPwd" resultType="com.tinc.web.entity.Member">
+		select password from Member where id=#{id} and email=#{email}; 
+	</select>
+	
 	<!-- 응썬 -->
    <select id="emailOpen" resultType="com.tinc.web.entity.Member">
       select id from Member where emailOpen=#{emailOpen}; 

@@ -8,6 +8,7 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -67,7 +68,6 @@ public class MemberController {
 		String id = principal.getName();
 		System.out.println(id);
 		
-		model.addAttribute("id", id);
 		model.addAttribute("myprofile", service.getMyProfile(id));
 		model.addAttribute("friendsProfile", service.getFriendsProfile(id));
 		model.addAttribute("friendListCount", service.getFriendsListCount(id));
@@ -282,50 +282,64 @@ public class MemberController {
 		return "member/agree";
 	}
 
-//	@PostMapping("agree")
-//	public String agree(Boolean agree, HttpServletResponse response) {
-//		//Cookie agreeCookie = new Cookie("agree", agree.toString());
-//		response.addCookie(agreeCookie);
-//		return "redirect:join"; 
-//	}
-
 	@GetMapping("find")
 	public String find() {
 		return "member/find";
 	}
-	
+
 	@ResponseBody
 	@PostMapping("find")
 	public String find(@RequestParam(name="email", required = false)String email, @RequestParam(name="id", required = false)String id, Model model)  throws MailException, MessagingException {
-		System.out.println(email);
-		System.out.println(service.findId(email));
-		
-		String findedId = service.findId(email).getId();
-		System.out.println(service.findId(email).getId());
+
+		String json = "[]";
+		String json2 = "[]";
+		String findedId = null;
 		Gson gson = new Gson();
-    	String gsonfindedId = gson.toJson(findedId);
-    	
-		if(id != null && email != null) {
-			StringBuilder html = new StringBuilder();
-			html.append("<html>");
-			html.append("<body>");
-			html.append("<h1>"+id+"</h1>");		
-			//html.append("<img src=\"http://www.newlecture.com/resource/images/logo.png\">");
-			//html.append("<a href=\"http://www.newlecture.com/member/reset-pwd?id=newlec\">비번 재설정");
-			html.append("</body>");
-			html.append("</html>");
-			
-			MimeMessage message = mailSender.createMimeMessage();
-			MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-			
-			helper.setFrom("yupddok@gmail.com");
-			helper.setTo(email);
-			helper.setText(html.toString(), true); //true안하면 utf8로안감
-			helper.setSubject("[TINC] 비밀번호 재설정 메일");
-			
-			mailSender.send(message);  //얘 객체생성하는 config파일 있어야됨 
+		
+		if(service.findId(email)!=null) {
+			findedId = service.findId(email).getId();
+			json = gson.toJson(findedId);
+		}else {
+			json ="[]";
 		}
-		return gsonfindedId;
+
+		if(id != null && email != null) {
+			Member member = new Member();
+			member.setId(id);
+			member.setEmail(email);
+			if(service.findPwd(member)!=null) {
+				String temporaryPassword = getRamdomPassword(7);
+				StringBuilder html = new StringBuilder();
+				html.append("<html>");
+				html.append("<body>");
+				html.append("<p>TINC 임시비밀번호입니다.</p>");		
+				html.append("<h1>"+temporaryPassword+"</h1>");
+				html.append("<p>비밀번호를 변경하여 사용하세요</p>");
+				html.append("</body>");
+				html.append("</html>");
+				
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+				
+				helper.setFrom("yupddok@gmail.com");
+				helper.setTo(email);
+				helper.setText(html.toString(), true); //true안하면 utf8로안감
+				helper.setSubject("[TINC] 비밀번호 재설정 메일");
+				
+				mailSender.send(message);  //얘 객체생성하는 config파일 있어야됨 
+				Member member2 = null;
+				member2 = service.get(id);
+				BCryptPasswordEncoder scpwd = new BCryptPasswordEncoder();
+				String encPassword = scpwd.encode(temporaryPassword);
+				member2.setPassword(encPassword);
+				service.editMember(member2);
+				json2 = gson.toJson("success");
+			}else {
+				json2 = "[]";
+			}
+			return json2;
+		}
+		return json;
 	}
 	
 	public void mkFile(String userId,int chatId,HttpServletRequest request) {
@@ -342,8 +356,23 @@ public class MemberController {
 			
 			FileWriter fos = new FileWriter(realPath+File.separator+fileName);
 			fos.close();
-			//System.out.println(realPath+File.separator+fileName);
 		} catch (IOException e) {}
+	}
+	
+	public static String getRamdomPassword(int len) { 
+		//임시 비밀번호 생성
+		char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 
+									  'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 
+									  'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 
+									  'U', 'V', 'W', 'X', 'Y', 'Z' }; 
+		int idx = 0; 
+		StringBuffer sb = new StringBuffer(); 
+		System.out.println("charSet.length :::: "+charSet.length); 
+		for (int i = 0; i < len; i++) { 
+			idx = (int) (charSet.length * Math.random()); 
+			sb.append(charSet[idx]); 
+		} 
+		return sb.toString(); 
 	}
 	
 }

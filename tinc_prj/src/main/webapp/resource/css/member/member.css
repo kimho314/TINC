@@ -20,12 +20,13 @@ input[type="password"] {width: calc(100% - 1.641rem); padding:0 0.9375rem; box-s
 input[type="tel"] {width: calc(100% - 1.641rem); padding:0 0.9375rem; box-sizing:border-box; color:#5e5e5e; height: 3.313rem; background: #fff; border-radius: 1.25rem;}
 
 .join {text-align: center;}
+.join #frm {height:100%;}
 .join input[type="text"] {margin-top:0.9375rem;}
 .join input[type="password"] {margin-top:0.9375rem;}
 .join input[type="tel"] {margin-top:0.9375rem;}
 .join input::placeholder {color: #b2b2b2;}
 .join span {color: #7367f0; font-size: 0.8125rem;}
-.join .agree-btn {margin-top: 1.563rem;}
+/* .join .agree-btn {margin-top: 1.563rem;} */
 .usable {position: relative;}
 .usable p b {position: absolute; font-size: 0.8125rem; bottom: 0.1875rem; right: 1.875rem;}
 /* .usable input[type="text"] {border: 0.0625rem solid #7367f0;} */
