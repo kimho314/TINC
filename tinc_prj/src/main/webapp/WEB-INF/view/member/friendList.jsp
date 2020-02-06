@@ -32,7 +32,7 @@
          </div>
          <div class="friend">
 	         <div class="box inline">  
-	         	<img src="../../../resource/images/${myprofile.profileImg}" alt="image" class="profile" id="img" data-nickname="${myprofile.nickName}" data-statusmsg="${myprofile.statusMsg}" data-img="${myprofile.profileImg}" >
+	         	<img src="../../../resource/images/${myprofile.profileImg}" alt="image" onclick="location.href='../setting'" class="profile" data-nickname="${myprofile.nickName}" data-statusmsg="${myprofile.statusMsg}" data-img="${myprofile.profileImg}" >
 	         </div>
 	         <c:if test="${not empty myprofile.statusMsg}">
          	 <div class="inline">
