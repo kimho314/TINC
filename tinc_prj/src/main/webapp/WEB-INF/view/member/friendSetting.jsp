@@ -38,13 +38,13 @@
 	         </div>
 	         <c:if test="${not empty userIhaveblocked.statusMsg}">
          	<div class="child-flex">
-	         	<p>${userIhaveblocked.nickName}</p>
+	         	<p><b>${userIhaveblocked.nickName}</b></p>
 	         	<p>${userIhaveblocked.statusMsg}</p>
          	</div>
          	</c:if>
 	         <c:if test="${empty userIhaveblocked.statusMsg}">
          	<div class="child-flex empty">
-	         	<p>${userIhaveblocked.nickName}</p>
+	         	<p><b>${userIhaveblocked.nickName}</b></p>
          	</div>
          	</c:if>
          	<div class="child-flex">
@@ -64,13 +64,13 @@
 	         </div>
 	         <c:if test="${not empty userWhoHaveAddedMe.statusMsg}">
          	<div class="child-flex">
-	         	<p>${userWhoHaveAddedMe.nickName}</p>
+	         	<p><b>${userWhoHaveAddedMe.nickName}</b></p>
 	         	<p>${userWhoHaveAddedMe.statusMsg}</p>
          	</div>
          	</c:if>
 	         <c:if test="${empty userWhoHaveAddedMe.statusMsg}">
          	<div class="child-flex empty">
-	         	<p>${userWhoHaveAddedMe.nickName}</p>
+	         	<p><b>${userWhoHaveAddedMe.nickName}</b></p>
          	</div>
          	</c:if>
          	<div class="child-flex">
