@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.security.Principal;
 import java.util.Date;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -16,11 +18,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.tinc.web.entity.Member;
 import com.tinc.web.entity.UploadFiles;
 import com.tinc.web.service.MemberService;
@@ -46,56 +51,97 @@ public class SettingController {
          sb.append(tmpStr);
          model.addAttribute("imgs", sb);
       }
-//      return "setting/setting";
-      return "main";
+      return "setting/setting";
+//      return "main";
    }
    
    @PostMapping("")
-   public String setting(Principal principal,
-         @RequestParam("myProfileImage")String profileImg,
-         @RequestParam("myId")String nickName,
-         @RequestParam("myStatusMessage")String statusMsg,
-         @RequestParam("settingEditEmail")String email,
-         @RequestParam("settingEditPhone")String phoneNum,
-         
-         @RequestParam("idCheckbox")int idOpen,
-         @RequestParam("phoneCheckbox")int phoneNumOpen,
-         @RequestParam("emailCheckbox")int emailOpen,
-         @RequestParam("chattingCheckbox")int chattingAlarm,
-         @RequestParam("memoCheckbox")int memoAlarm
-         ) {
+   @ResponseBody
+   public String setting(Principal principal, @RequestBody String json) {
       
 	  String id = principal.getName();
-      System.out.println(id);
+      
+      Gson gson = new Gson();
+      Type paramMapType = new TypeToken<Map<String, String>>() {}.getType();
+      Map<String, String> paramMap = gson.fromJson(json, paramMapType);
       
       Member member = service.get(id);
-//      img.getBytes();
-      member.setProfileImg(profileImg);
-      member.setNickName(nickName);
-      member.setStatusMsg(statusMsg);
-      member.setEmail(email);
-      member.setPhoneNum(phoneNum);
+  
+      if(!paramMap.get("myId").equals("") && paramMap.get("myId") != null) {
+    	  member.setNickName(paramMap.get("myId"));    	  
+      }
+      if(!paramMap.get("myStatusMessage").equals("") && paramMap.get("myStatusMessage") != null) {
+    	  member.setStatusMsg(paramMap.get("myStatusMessage"));
+      }
+      if(!paramMap.get("settingEditEmail").equals("") && paramMap.get("settingEditEmail") != null) {
+    	  member.setEmail(paramMap.get("settingEditEmail"));
+      }
+      if(!paramMap.get("settingEditPhone").equals("") && paramMap.get("settingEditPhone") != null) {
+    	  member.setPhoneNum(paramMap.get("settingEditPhone"));
+      }
       
-      member.setIdOpen(idOpen);
-      member.setPhoneNumOpen(phoneNumOpen);
-      member.setEmailOpen(emailOpen);
+      if(!paramMap.get("idCheckbox").equals("") && paramMap.get("idCheckbox") != null) {
+    	  if(paramMap.get("idCheckbox").equals("true")) {
+    		  member.setIdOpen(1);    		  
+    	  }else {
+    		  member.setIdOpen(0);
+    	  }
+      }
       
-      member.setChattingAlarm(chattingAlarm);
-      member.setMemoAlarm(memoAlarm);
+      if(!paramMap.get("phoneCheckbox").equals("") && paramMap.get("phoneCheckbox") != null) {
+    	  if(paramMap.get("phoneCheckbox").equals("true")) {
+    		  member.setPhoneNumOpen(1);    		  
+    	  }else {
+    		  member.setPhoneNumOpen(0);
+    	  }
+      }
       
-      service.editMember(member);
+      if(!paramMap.get("emailCheckbox").equals("") && paramMap.get("emailCheckbox") != null) {
+    	  if(paramMap.get("emailCheckbox").equals("true")) {
+    		  member.setEmailOpen(1);    		  
+    	  }else {
+    		  member.setEmailOpen(0);
+    	  }
+      }
       
-      return "redirect:setting";
+      if(!paramMap.get("chattingCheckbox").equals("") && paramMap.get("chattingCheckbox") != null) {
+    	  if(paramMap.get("chattingCheckbox").equals("true")) {
+    		  member.setChattingAlarm(1);    		  
+    	  }else {
+    		  member.setChattingAlarm(0);
+    	  }
+      }
+      
+      if(!paramMap.get("memoCheckbox").equals("") && paramMap.get("memoCheckbox") != null) {
+    	  if(paramMap.get("memoCheckbox").equals("true")) {
+    		  member.setMemoAlarm(1);    		  
+    	  }else {
+    		  member.setMemoAlarm(0);
+    	  }
+      }
+
+      try {
+    	  service.editMember(member);
+    	  System.out.println("ok");
+    	  return "ok";
+		
+	} catch (Exception e) {
+	   	  System.out.println("err");
+  	  return "err";
+	}
+      
    }
    
 	@ResponseBody
 	@PostMapping("upload")
-	public String upload(String memberId, UploadFiles uploadFiles, @RequestParam("file") MultipartFile file,
+	public String upload(Principal principal,UploadFiles uploadFiles, @RequestParam("file") MultipartFile file,
 			HttpServletRequest request) {
-
-		String fileName = memberId;
-
-		Member member = service.get(memberId);
+		
+		String id = principal.getName();
+		String fileType = file.getOriginalFilename();
+		String fileName = id+fileType.substring(fileType.lastIndexOf("."));
+		
+		Member member = service.get(id);
 
 		ServletContext application = request.getServletContext();
 		String urlPath = "/resource/images";
@@ -125,12 +171,11 @@ public class SettingController {
 			return "redirect:/error?code=500";
 		}
 
-		uploadFiles.setMemberId(memberId);
+		uploadFiles.setMemberId(id);
 		uploadFiles.setFiles(file.getOriginalFilename());
 		
 		member.setProfileImg(fileName);
 		service.editMember(member);
-//		uploadFilesService.uploadFiles(uploadFiles);
 
 		return fileName;
 	}
