@@ -13,9 +13,6 @@ function showMemoCard() {
 				e.preventDefault();
 				e.stopPropagation();
 
-				if (isTitleChanged) {
-					createNewMemoCard(e.target.parentNode.parentNode.parentNode);
-				}
 
 				if (!isTitleChanged) {
 					let cardId = e.target.parentNode.previousElementSibling.children[1].value;
@@ -28,7 +25,6 @@ function showMemoCard() {
 						let newDoc = document.open(oldUrl, "replace");
 						newDoc.write(data);
 						newDoc.close();
-
 						history.pushState(null, null, url);
 					});
 				}
@@ -59,8 +55,9 @@ function inputMemoCardTitle(Elem) {
 	let newMemoCardTitle = newMemoCard.querySelector(".memo-card-title input[name=\"memo-card-title\"]");
 	let newMomoCardContent = newMemoCard.querySelector(".memo-card-content .memo-card-content-textarea");
 
-	$(Elem).animate({ 
-		scrollTop: $(newMemoCard).offset().top }, 500);
+	$(Elem).animate({
+		scrollTop: $(newMemoCard).offset().top
+	}, 500);
 
 	$(newMemoCardTitle).focus();
 	let isTitleAvailable = new Promise(function (resolve, reject) {

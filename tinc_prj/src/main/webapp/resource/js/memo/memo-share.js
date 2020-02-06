@@ -6,6 +6,20 @@ window.addEventListener("load", function () {
     getShareIds();
     showPrivateShareList();
     showGroupShareList();
+
+    // 공유창의 'x'버튼을 누르면 메모카드 디테일로 돌아간다
+    $(".memo-share-visual > div:first-child > i").off("click").click((e) => {
+        let mcId = $("input[name=\"memo-card-id\"]").val();
+        let url = "/memo/detail?cardId=" + mcId;
+        let oldUrl = window.location.pathname + window.location.search;
+
+        $.get(url, function (data) {
+            let newDoc = document.open(oldUrl, "replace");
+            newDoc.write(data);
+            newDoc.close();
+            history.pushState(null, null, url);
+        });
+    });
 })
 
 
@@ -146,7 +160,7 @@ function shareMemo() {
 
     let mcId = $(".memo-share-content > input[name=\"memo-card-id\"]").val();
 
-    $(".memo-share-visual > div > i").off("click").click(function (e) {
+    $(".memo-share-visual > div:last-child > i").off("click").click(function (e) {
         console.log(gsIdList.length + "," + fsIdList.length);
         if (gsIdList.length > 0 || fsIdList.length > 0) {
             let mcId = $("input[name=\"memo-card-id\"]").val();
@@ -183,6 +197,11 @@ function shareMemo() {
                 });
             }
             request.send(sendShareData);
+        }
+        else {
+            $(".mask").fadeIn().delay(500).fadeOut();
+            $(".popup").fadeIn().delay(500).fadeOut();
+            $(".no-share-list-popup").fadeIn().delay(500).fadeOut();
         }
     });
 }
