@@ -96,24 +96,26 @@ function showGroupShareList() {
             memoShareContent.innerHTML = "";
 
             for (let i = 0; i < receivedData.length; i++) {
-                let cloneMemoShare = document.importNode(memoShareTemplate.content, true);
-
-                let idInput = cloneMemoShare.querySelector("input[type=\"hidden\"]");
-                idInput.name = "share-chatting-room-id";
-                idInput.value = receivedData[i].chattingRoomId;
-
-                let sharePic = cloneMemoShare.querySelector("div.memo-share-list-pic");
-                let newPic = document.createElement("i");
-                newPic.className = "fas fa-users";
-                sharePic.append(newPic);
-
-                let nickNameInput = cloneMemoShare.querySelector("input[name=\"memo-share-list-content-top\"]");
-                nickNameInput.value = receivedData[i].chattingRoomTitle;
-                let statusMsgInput = cloneMemoShare.querySelector("input[name=\"memo-share-list-content-bottom\"]");
-                statusMsgInput.value = "";
-
-                memoShareContent.append(cloneMemoShare);
-
+            	if(receivedData[i].chattingRoomTitle.indexOf(",") == -1){
+            		let cloneMemoShare = document.importNode(memoShareTemplate.content, true);
+            		
+            		let idInput = cloneMemoShare.querySelector("input[type=\"hidden\"]");
+            		idInput.name = "share-chatting-room-id";
+            		idInput.value = receivedData[i].chattingRoomId;
+            		
+            		let sharePic = cloneMemoShare.querySelector("div.memo-share-list-pic");
+            		let newPic = document.createElement("i");
+            		newPic.className = "fas fa-users";
+            		sharePic.append(newPic);
+            		
+            		let nickNameInput = cloneMemoShare.querySelector("input[name=\"memo-share-list-content-top\"]");
+            		nickNameInput.value = receivedData[i].chattingRoomTitle;
+            		let statusMsgInput = cloneMemoShare.querySelector("input[name=\"memo-share-list-content-bottom\"]");
+            		statusMsgInput.value = "";
+            		
+            		memoShareContent.append(cloneMemoShare);
+            		
+            	}
             }
 
             shareMemo();
