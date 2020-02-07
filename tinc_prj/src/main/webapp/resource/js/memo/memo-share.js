@@ -96,26 +96,26 @@ function showGroupShareList() {
             memoShareContent.innerHTML = "";
 
             for (let i = 0; i < receivedData.length; i++) {
-            	if(receivedData[i].chattingRoomTitle.indexOf(",") == -1){
-            		let cloneMemoShare = document.importNode(memoShareTemplate.content, true);
-            		
-            		let idInput = cloneMemoShare.querySelector("input[type=\"hidden\"]");
-            		idInput.name = "share-chatting-room-id";
-            		idInput.value = receivedData[i].chattingRoomId;
-            		
-            		let sharePic = cloneMemoShare.querySelector("div.memo-share-list-pic");
-            		let newPic = document.createElement("i");
-            		newPic.className = "fas fa-users";
-            		sharePic.append(newPic);
-            		
-            		let nickNameInput = cloneMemoShare.querySelector("input[name=\"memo-share-list-content-top\"]");
-            		nickNameInput.value = receivedData[i].chattingRoomTitle;
-            		let statusMsgInput = cloneMemoShare.querySelector("input[name=\"memo-share-list-content-bottom\"]");
-            		statusMsgInput.value = "";
-            		
-            		memoShareContent.append(cloneMemoShare);
-            		
-            	}
+                if (receivedData[i].chattingRoomTitle.indexOf(",") == -1) {
+                    let cloneMemoShare = document.importNode(memoShareTemplate.content, true);
+
+                    let idInput = cloneMemoShare.querySelector("input[type=\"hidden\"]");
+                    idInput.name = "share-chatting-room-id";
+                    idInput.value = receivedData[i].chattingRoomId;
+
+                    let sharePic = cloneMemoShare.querySelector("div.memo-share-list-pic");
+                    let newPic = document.createElement("i");
+                    newPic.className = "fas fa-users";
+                    sharePic.append(newPic);
+
+                    let nickNameInput = cloneMemoShare.querySelector("input[name=\"memo-share-list-content-top\"]");
+                    nickNameInput.value = receivedData[i].chattingRoomTitle;
+                    let statusMsgInput = cloneMemoShare.querySelector("input[name=\"memo-share-list-content-bottom\"]");
+                    statusMsgInput.value = "";
+
+                    memoShareContent.append(cloneMemoShare);
+
+                }
             }
 
             shareMemo();
@@ -187,7 +187,6 @@ function shareMemo() {
 
                 createCookie("isShared", true);
 
-                //window.location.href = "../../../../memo/detail?cardId=" + mcId; // -> 테스트 끝나면 detail 페이지로 가는걸로 변경
                 let url = "/memo/detail?cardId=" + mcId;
                 let oldUrl = window.location.pathname + window.location.search;
                 $.get(url, function (data) {
