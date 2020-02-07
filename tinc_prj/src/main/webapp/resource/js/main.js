@@ -677,13 +677,13 @@ $(document).ready(function() {
       </div>`);
 
         if(data[1][j].statusMsg == ""){
-          $(`#bFriendStatusMsg${data[1][j].id}`).append(`
+          $(`#aFriendStatusMsg${data[1][j].id}`).append(`
           <div class="child-flex empty">
           <p><b>${data[1][j].nickName}</b></p>
         </div>
           `);
         }else{
-          $(`#bFriendStatusMsg${data[1][j].id}`).append(`
+          $(`#aFriendStatusMsg${data[1][j].id}`).append(`
           <div class="child-flex">
           <p><b>${data[1][j].nickName}</b></p>
           <p>${data[1][j].statusMsg}</p>
@@ -728,39 +728,9 @@ $(document).ready(function() {
 // 			추가							
 // 		</div>
             
-//          <div class="bottombutton">
-//             <button type="button" class="btn on"  onclick="location.href='friendList'">
-//                <i class="fas fa-user">친구목록</i>
-//                <!-- <i class="fas fa-user-plus">친구추가</i> -->
-//             </button>
-//             <button class="btn">
-//                <i class="fas fa-comments">채팅목록</i> 
-//                <!-- <span class="btn-chatadd">
-//                   <span class="hidden">채팅추가</span>
-//                   <i class="fas fa-comments"></i>
-//                   <i class="fas fa-plus"></i>
-//                </span> -->
-//             </button>
-//             <button class="btn">
-//                <i class="fas fa-cog">설정</i>
-//             </button>
-//          </div>
 //          </form>
 //       </main><!-- container end -->
 //    </section><!-- wrapper end -->
-//    <div class="popup alert">
-//       <div class="popup-wrap">
-//          <div class="context">
-//             <p>회원가입이 완료되었습니다.</p>
-//          </div>
-//          <div class="btn-area">
-//             <a href="#" class="btn">취소</a>
-//             <a href="#" class="btn">확인</a>
-//          </div>
-//          <a href="#" class="btn-close">닫기</a>
-//       </div>
-//    </div>
-//    <div class="mask"></div>
 //       `);
 //   });
 

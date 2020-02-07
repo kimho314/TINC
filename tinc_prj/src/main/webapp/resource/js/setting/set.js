@@ -43,10 +43,6 @@ $(function(){
     })
 })
 
-let regExpPhone = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
-let regExpEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-
-
 // ------ 계정 설정 ------
 $(function(){
     $(".changeMyprofile").change(function(){
@@ -55,6 +51,13 @@ $(function(){
 })
 
 function updateSetting(){
+    // 정규식
+    let regExpPhone = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
+    let regExpEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+    let emailInput = $("#settingEditEmail");
+    let phoneNumInput = $("#settingEditPhone");
+
     let nickName = $("#myId").val();
     let statusMessage = $("#myStatusMessage").val();
     let email = $("#settingEditEmail").val();
@@ -67,7 +70,24 @@ function updateSetting(){
     let chatAlarm = $('input:checkbox[id="chattingCheckbox"]').is(":checked");
     let memoAlarm = $('input:checkbox[id="memoCheckbox"]').is(":checked");
 
-    // JSON.stringify(
+    emailInput.blur("input" ,function(){
+        if(email.match(regExpEmail) != null){
+            
+        }else{
+            alert("적합하지 않은 이메일 형식입니다.");
+            return false;
+        }
+    })
+
+    phoneNumInput.blur("input" ,function(){
+        if(phone.match(regExpPhone) != null){
+            
+        }else{
+            alert("적합하지 않은 전화번호 형식입니다.");
+            return false;
+        }
+    })
+
     let setJSON = JSON.stringify({
         myId:nickName,
         myStatusMessage:statusMessage,
@@ -79,7 +99,6 @@ function updateSetting(){
         chattingCheckbox:chatAlarm,
         memoCheckbox:memoAlarm
     });
-
     console.log(setJSON);
     
     $.ajax({
@@ -102,63 +121,3 @@ $(function() {
        $("#withdrawA2").css("display","block");
     })
 });
-
-$(function(){
-    $("#setting-edit-pwd").click(function(){
-        location.href="setting/change-pwd";
-    })
-})
-
-$(function(){
-    $("#setting-secession").click(function(){
-        location.href="setting/withdraw";
-    })
-})
-
-$(function(){
-    $("#set-logout").click(function(){
-        location.href="setting/logout";
-    })
-})
-
-$(function(){
-    $(".btn-close").click(function(){
-    	location.href="../setting";
-    })
-})
-
-$(function(){
-    $("#withdraw-cancle1").click(function(){
-    	location.href="../setting";
-    })
-})
-
-$(function(){
-    $("#withdraw-cancle2").click(function(){
-    	location.href="../setting";
-    })
-})
-
-$(function(){
-    $("#logout-cancle").click(function(){
-    	location.href="../setting";
-    })
-})
-
-$(function(){
-    $("#cancle-edit-pwd").click(function(){
-    	location.href="../setting";
-    })
-})
-
-$(function(){
-    $("#logout-ok").click(function(){
-        location.href="../member/login";
-    })
-})
-
-$(function(){ 
-    $("#goMemo").click(function(){
-        location.href="../memo/list";
-    })
-})
