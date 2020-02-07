@@ -71,7 +71,8 @@ public class MemberController {
       model.addAttribute("friendsProfile", service.getFriendsProfile(id));
       model.addAttribute("friendListCount", service.getFriendsListCount(id));
    
-      return "member/friendList";
+//      return "member/friendList";
+      return "main";
    }
    
    @ResponseBody

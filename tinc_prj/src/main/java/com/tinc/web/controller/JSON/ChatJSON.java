@@ -38,8 +38,8 @@ public class ChatJSON {
 		
 		String cList = "";
 		
-		//String userId = principal.getName();
-		String userId = "user2";
+		String userId = principal.getName();
+//		String userId = "user2";
 		List<ChattingRoom> list = chattingService.getList(userId);
 		
 		List<Map<String,String>> type = new ArrayList<>();
