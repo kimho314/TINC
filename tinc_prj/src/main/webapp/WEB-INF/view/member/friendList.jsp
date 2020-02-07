@@ -28,7 +28,7 @@
          <div class="menu">
          	<span class="left"></span>
             <span class="center">친구</span>
-            <span class="right" onclick="location.href='friendSetting'"><i class="fas fa-bars"></i></span>
+            <span class="right" onclick="location.href='friendSetting'" ><i class="fas fa-bars"></i></span>
          </div>
          <div class="friend">
 	         <div class="box inline">  
@@ -47,7 +47,7 @@
          	</c:if>
          </div>
 	     <hr>
-	     <c:if test="${0 ne friendListCount} }">
+	     <c:if test="${0 ne friendListCount}">
 	     	<p class="list-count">친구 ${friendListCount}</p>
 	     </c:if>
 	     <c:forEach var="friendsProfile" items="${friendsProfile}">
@@ -159,6 +159,8 @@
 			});
 			
 		});
+		
+		
 		
 		function infobox(txt){
 			$("#anno").html(txt);
