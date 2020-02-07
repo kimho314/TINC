@@ -139,9 +139,9 @@ window.addEventListener("load", function (e) {
 				var duedateContainer = document.querySelector(
 					".memo-duedate-container"
 				)
-				for (let i = 0; i < duedateContainer.children.length; i++) {
-					$(duedateContainer.children).animate({ scrollTop: 0 });
-				}
+//				for (let i = 0; i < duedateContainer.children.length; i++) {
+//					$(duedateContainer.children).animate({ scrollTop: 0 });
+//				}
 
 				$(".memo-duedate-popup").fadeOut();
 				$(".popup").fadeOut();
