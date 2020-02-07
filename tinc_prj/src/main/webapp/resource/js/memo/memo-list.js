@@ -18,8 +18,7 @@ function showMemoCard() {
 					let cardId = e.target.parentNode.previousElementSibling.children[1].value;
 					let url = "/memo/detail?cardId=" + cardId;
 					let oldUrl = window.location.pathname + window.location.search;
-					//console.log(oldUrl);
-					//window.location.href = url;
+
 					$.get(url, function (data) {
 						//console.log(data);
 						let newDoc = document.open(oldUrl, "replace");
@@ -75,8 +74,6 @@ function inputMemoCardTitle(Elem) {
 	});
 
 	isTitleAvailable.then((result) => {
-		//console.log(result);
-		//console.log(newMomoCardContent + "," + Elem + ", " + newMemoCardTitle);
 		if (result === true) {
 			createNewMemoCard(Elem);
 		} else {
@@ -128,7 +125,6 @@ function createNewMemoCard(Elem) {
 		//console.log(receivedData);
 		$("input[name=\"memo-card-id\"]").val(receivedData.id);
 		isTitleChanged = false;
-		console.log("post done");
 	};
 
 	request.send(newMemoCardData); //  요청한 후 기다림

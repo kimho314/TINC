@@ -1,20 +1,14 @@
 package com.tinc.web.controller;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.ProcessBuilder.Redirect;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -23,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,12 +28,10 @@ import com.google.gson.Gson;
 import com.tinc.web.entity.BlackList;
 import com.tinc.web.entity.ChattingRoom;
 import com.tinc.web.entity.FriendsList;
-import com.tinc.web.entity.GroupMemoList;
 import com.tinc.web.entity.Member;
 import com.tinc.web.entity.MemberRole;
 import com.tinc.web.entity.PrivateMemoList;
 import com.tinc.web.service.ChattingService;
-import com.tinc.web.service.GroupMemoListService;
 import com.tinc.web.service.MemberService;
 import com.tinc.web.service.PrivateMemoListService;
 
@@ -54,8 +47,6 @@ public class MemberController {
 	private PrivateMemoListService memoService;
 	@Autowired
 	private ChattingService chattingService;
-	@Autowired
-	private GroupMemoListService groupMemoListService;
 	
 	@GetMapping("main")
 	   public String main() {
@@ -68,67 +59,11 @@ public class MemberController {
 		String id = principal.getName();
 		System.out.println(id);
 		
+		model.addAttribute("id", id);
 		model.addAttribute("myprofile", service.getMyProfile(id));
 		model.addAttribute("friendsProfile", service.getFriendsProfile(id));
 		model.addAttribute("friendListCount", service.getFriendsListCount(id));
 	
-		return "member/friendList";
-	}
-	
-	@ResponseBody
-	@PostMapping("friendList")
-	public String friendList(
-			@RequestParam(name = "friendsId" , required = false) String friendsId,
-			@RequestParam(name = "cmd" , required = false) String cmd,
-			BlackList blackList,
-			FriendsList friendsList,
-			Principal principal,
-			HttpServletRequest request) {
-		String memberId = principal.getName();
-		
-		blackList.setMemberId(memberId);
-		blackList.setBlackId(friendsId);
-		friendsList.setMemberId(memberId);
-		friendsList.setFriendsId(friendsId);
-		System.out.println(memberId+cmd+friendsId);
-		
-		if(friendsId != null && cmd!=null) {
-			switch (cmd) {
-				case "chatting":
-					int dupliRoomId = chattingService.isDuplicatedRoom(memberId,friendsId);
-					if(dupliRoomId != 0) {
-						String roomId = String.valueOf(dupliRoomId);
-						return "../../chat/"+roomId+"";
-					}else {
-						int chatId = 0;
-						Member my = service.get(memberId);
-						Member m = service.get(friendsId);
-						String title = my.getNickName()+", "+m.getNickName();
-						int result = chattingService.createChattingRoom(new ChattingRoom(memberId,title));// 방장 먼저 개설	
-						
-						if(result == 1) {
-							chatId = chattingService.getChattingRoomId(memberId); // 개설한 채팅 아이디가져오기
-							chattingService.inviteMember(chatId, friendsId); // 초대 완료 
-							groupMemoListService.insert(new GroupMemoList(title,chatId,memberId));
-							groupMemoListService.insert(new GroupMemoList(title,chatId,friendsId));
-							mkFile(memberId,chatId,request);
-							mkFile(friendsId,chatId,request);
-						}
-						String chattingId = String.valueOf(chatId);
-						return "../../chat/"+chattingId+"";
-					}
-			case "block":
-				int result1 = service.deleteFriend(friendsList);
-				int result2 = service.blockUser(blackList);
-				if(result1 == 1 && result2 == 1) {
-					friendsList.setMemberId(friendsId);
-					friendsList.setFriendsId(memberId);
-					int result3 = service.deleteFriend(friendsList);
-					System.out.println(result1+","+result2+","+result3);
-				}
-				break;
-			}
-		}
 		return "member/friendList";
 	}
 	
@@ -147,7 +82,7 @@ public class MemberController {
 	public String friendSetting( 
 			@RequestParam(name = "friendsId" , required = false) String friendsId,
 			@RequestParam(name = "cmd" , required = false) String cmd,
-			FriendsList friendsList, 
+			FriendsList friendList, 
 			BlackList blackList,
 			Principal principal) 
 		{
@@ -155,8 +90,8 @@ public class MemberController {
 		String blackId = friendsId;
 		System.out.println(memberId+","+friendsId);
 		
-		friendsList.setMemberId(memberId);
-		friendsList.setFriendsId(friendsId);
+		friendList.setMemberId(memberId);
+		friendList.setFriendsId(friendsId);
 		blackList.setMemberId(memberId);
 		blackList.setBlackId(blackId);
 		
@@ -165,25 +100,18 @@ public class MemberController {
 			switch (cmd) {
 			case "userIhaveblocked-add":
 				int result1 = service.unblockUser(blackList);
-				int result2 = service.addFriend(friendsList);
+				int result2 = service.addFriend(friendList);
 				System.out.println("result1:"+result1+"result2:"+result2);
 				break;
 			case "userIhaveblocked-unblock":
 				service.unblockUser(blackList);
 				break;
 			case "userWhoHaveAddedMe-add":
-				int result = service.addFriend(friendsList);
+				int result = service.addFriend(friendList);
 				System.out.println(result);
 				break;
 			case "userWhoHaveAddedMe-block":
-				int result3 = service.deleteFriend(friendsList);
-				int result4 = service.blockUser(blackList);
-				if(result3 == 1 && result4 == 1) {
-					friendsList.setMemberId(friendsId);
-					friendsList.setFriendsId(memberId);
-					int result5 = service.deleteFriend(friendsList);
-					System.out.println(result3+","+result4+","+result5);
-				}
+				service.blockUser(blackList);
 				break;
 			}
 		}
@@ -282,97 +210,50 @@ public class MemberController {
 		return "member/agree";
 	}
 
+//	@PostMapping("agree")
+//	public String agree(Boolean agree, HttpServletResponse response) {
+//		//Cookie agreeCookie = new Cookie("agree", agree.toString());
+//		response.addCookie(agreeCookie);
+//		return "redirect:join"; 
+//	}
+
 	@GetMapping("find")
 	public String find() {
 		return "member/find";
 	}
-
+	
 	@ResponseBody
 	@PostMapping("find")
 	public String find(@RequestParam(name="email", required = false)String email, @RequestParam(name="id", required = false)String id, Model model)  throws MailException, MessagingException {
-
-		String json = "[]";
-		String json2 = "[]";
-		String findedId = null;
-		Gson gson = new Gson();
+		System.out.println(email);
+		System.out.println(service.findId(email));
 		
-		if(service.findId(email)!=null) {
-			findedId = service.findId(email).getId();
-			json = gson.toJson(findedId);
-		}else {
-			json ="[]";
-		}
-
+		String findedId = service.findId(email).getId();
+		System.out.println(service.findId(email).getId());
+		Gson gson = new Gson();
+    	String gsonfindedId = gson.toJson(findedId);
+    	
 		if(id != null && email != null) {
-			Member member = new Member();
-			member.setId(id);
-			member.setEmail(email);
-			if(service.findPwd(member)!=null) {
-				String temporaryPassword = getRamdomPassword(7);
-				StringBuilder html = new StringBuilder();
-				html.append("<html>");
-				html.append("<body>");
-				html.append("<p>TINC 임시비밀번호입니다.</p>");		
-				html.append("<h1>"+temporaryPassword+"</h1>");
-				html.append("<p>비밀번호를 변경하여 사용하세요</p>");
-				html.append("</body>");
-				html.append("</html>");
-				
-				MimeMessage message = mailSender.createMimeMessage();
-				MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-				
-				helper.setFrom("yupddok@gmail.com");
-				helper.setTo(email);
-				helper.setText(html.toString(), true); //true안하면 utf8로안감
-				helper.setSubject("[TINC] 비밀번호 재설정 메일");
-				
-				mailSender.send(message);  //얘 객체생성하는 config파일 있어야됨 
-				Member member2 = null;
-				member2 = service.get(id);
-				BCryptPasswordEncoder scpwd = new BCryptPasswordEncoder();
-				String encPassword = scpwd.encode(temporaryPassword);
-				member2.setPassword(encPassword);
-				service.editMember(member2);
-				json2 = gson.toJson("success");
-			}else {
-				json2 = "[]";
-			}
-			return json2;
+			StringBuilder html = new StringBuilder();
+			html.append("<html>");
+			html.append("<body>");
+			html.append("<h1>"+id+"</h1>");		
+			//html.append("<img src=\"http://www.newlecture.com/resource/images/logo.png\">");
+			//html.append("<a href=\"http://www.newlecture.com/member/reset-pwd?id=newlec\">비번 재설정");
+			html.append("</body>");
+			html.append("</html>");
+			
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+			
+			helper.setFrom("yupddok@gmail.com");
+			helper.setTo(email);
+			helper.setText(html.toString(), true); //true안하면 utf8로안감
+			helper.setSubject("[TINC] 비밀번호 재설정 메일");
+			
+			mailSender.send(message);  //얘 객체생성하는 config파일 있어야됨 
 		}
-		return json;
-	}
-	
-	public void mkFile(String userId,int chatId,HttpServletRequest request) {
-		//파일 만들기 
-		String filePath = "/WEB-INF/storage/chat";
-		String fileName = userId+chatId+".json";
-		ServletContext application = request.getServletContext();
-		String realPath = application.getRealPath(filePath);		
-		try {
-			File file = new File(realPath);
-			
-			if(!file.exists())
-				file.mkdirs();
-			
-			FileWriter fos = new FileWriter(realPath+File.separator+fileName);
-			fos.close();
-		} catch (IOException e) {}
-	}
-	
-	public static String getRamdomPassword(int len) { 
-		//임시 비밀번호 생성
-		char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 
-									  'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 
-									  'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 
-									  'U', 'V', 'W', 'X', 'Y', 'Z' }; 
-		int idx = 0; 
-		StringBuffer sb = new StringBuffer(); 
-		System.out.println("charSet.length :::: "+charSet.length); 
-		for (int i = 0; i < len; i++) { 
-			idx = (int) (charSet.length * Math.random()); 
-			sb.append(charSet[idx]); 
-		} 
-		return sb.toString(); 
+		return gsonfindedId;
 	}
 	
 }

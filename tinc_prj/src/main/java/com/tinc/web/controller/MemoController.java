@@ -96,7 +96,8 @@ public class MemoController
 			model.addAttribute("memoCardList", memoCardList);
 		}
 
-		return "memo/list";
+//		return "memo/list";
+		return "main";
 	}
 
 	@ResponseBody
