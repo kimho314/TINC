@@ -1,12 +1,14 @@
 package com.tinc.web.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
@@ -279,6 +281,7 @@ public class MemberController {
    
    @GetMapping("agree")
    public String agree() {
+	   
       return "member/agree";
    }
 

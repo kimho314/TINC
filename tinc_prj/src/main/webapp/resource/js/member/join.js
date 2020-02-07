@@ -1,6 +1,5 @@
 	window.addEventListener("load",function(){
     	$("#id-input").blur(function() {
-    		// id = "id_reg" / name = "userId"
     		var id = $('#id-input').val();
     		var idJ = /^[a-z0-9]{4,12}$/;
     		$.ajax({
@@ -35,13 +34,7 @@
     						$("#id-input").css("border", "0.0625rem solid #f0679e");
     						$("#submit").attr("disabled", true);				
     						
-    					} /* else {
-								$('#validate-id').text("");
-								$('#validate-id').css('color', '#f0679e');
-								$("#id-input").css("border", "0.0625rem solid #f0679e");
-								$("#submit").attr("disabled", true);
-							}  */
-    					
+    					}
     				}
     			}, error : function() {
     				console.log("실패");
