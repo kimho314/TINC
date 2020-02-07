@@ -471,114 +471,518 @@ $(document).ready(function() {
 //   }); // ajax memo-list -end
 
 //  } // if -end
+//   $.ajax({
+//     url: "/jsonTinc/member/friendList",
+//     dataType: "json",
+//     async: false,
+//     success: function(data) {
+//       console.log(data);
+//       $("#content").append(`
+//       <link rel="stylesheet" href="/resource/css/member/member.css?xxxxxx" >
+// <link rel="stylesheet" href="/resource/css/chatting/chat.css?x">
+//       <script src="/resource/js/chatting/uiUtil.js"></script>
+//       <section class="wrapper"> 
+//       <nav class="gnb"> 
+//          <a href="#" title="메모장 이동">MEMO</a>
+//       </nav>
+//       <main class="container friend-list">
+//          <form>
+//          <div class="menu">
+//          	<span class="left"></span>
+//             <span class="center">친구</span>
+//             <span class="right" onclick="location.href='friendSetting'" ><i class="fas fa-bars"></i></span>
+//          </div>
+//          <div class="friend">
+// 	         <div class="box inline">  
+// 	         	<img src="/resource/images/${data[0].profileImg}" alt="image" onclick="location.href='../setting'" class="profile" data-nickname="${data[0].nickName}" data-statusmsg="${data[0].statusMsg}" data-img="${data[0].profileImg}" >
+//            </div>
+//            <div class="inline" id="ajStatusMsg">
+//            </div>
+//          </div>
+//        <hr>
+//        <div id="ajfriendList"></div>     
+
+// 			 <div id="anno" style="display:none">
+// 				추가							
+// 			</div>
+//          </form>
+//       </main>
+//    </section>
+   
+//    <div class="popup friendSetting">
+// 		<div class="popup-wrap">
+// 			<div class="popup-container">				
+//         <div class="profile">
+// 					<figure>
+// 						<img id="popupImg" src="" alt="">
+// 					</figure>
+// 					<ul>
+// 						<li class="title" id="popId"></li>
+// 						<li id="popupStatusMsg"></li>
+// 					</ul>
+// 				</div>
+// 				<nav class="btn-area">
+// 					<ul >
+// 						<li>
+// 							<a href="#" id="chatting" class="btn">1:1채팅</a>
+// 							<a href="#" id="block" class="btn">차단</a>
+// 						</li>
+// 					</ul>
+// 				</nav>
+// 				<a href="#" class="btn-close fas fa-times" onclick="popupClose()">닫기</a>
+// 			</div>
+// 		</div>
+// 	</div>
+// 	<div class="mask"></div>
+//       `);
+//       if(data[0].statusMsg == ""){
+//         $("#ajStatusMsg").append(`
+//         <p><b>${data[0].nickName}</b></p>
+//         `);
+//       }else{
+//         $("#ajStatusMsg").append(`
+//         <p><b>${data[0].nickName}</b></p>
+//         <p>${data[0].statusMsg}</p>
+//         `);
+//       }// if else -end
+
+//       if(data[2]==0){
+//         $("#ajfriendList").append(`
+//         <p class="no-friend">아래의 친구 추가를<br>눌러 친구를 추가해 보세요.</p> 
+//         `);
+//       }else{
+//         $("#ajfriendList").append(`
+//         <p class="list-count">친구 ${data[2]}</p>
+//         `);
+//         for(let i=0;i<data[2];i++){
+//           $("#ajfriendList").append(`
+//           <div class="list" id="friendsId${data[1][i].id}">
+//           <div class="friend">
+//               <div class="box inline">  
+//                 <img src="/resource/images/${data[1][i].profileImg}" alt="image1" class="profile" id="img_${i}" 
+//                 data-id="${data[1][i].id}" data-nickname="${data[1][i].nickName}" data-statusmsg="${data[1][i].statusMsg}" data-img="${data[1][i].profileImg}">
+//               </div>
+//               <div class="inline" id="ajFL${data[1][i].id}"></div>
+//             </div>
+//         </div>
+//           `);
+//           if(data[1][i].statusMsg == ""){
+//             $(`#ajFL${data[1][i].id}`).append(`
+//             <div class="inline empty">
+//             <p><b>${data[1][i].nickName}</b></p>
+//           </div>
+//           `);
+//           }else{
+//             $(`#ajFL${data[1][i].id}`).append(`
+//             <div class="inline">
+//                     <p id="nickName"><b>${data[1][i].nickName}</b></p>
+//                     <p id="statusMsg">${data[1][i].statusMsg}</p>
+//                   </div>
+//             `);
+//           }// in for if else -end
+//         }// for -end
+//       }// if else -end
+
+//     }// success -end
+
+//   });
+
   $.ajax({
-    url: "/jsonTinc/member/friendList",
+    url: "/jsonTinc/member/friendSetting",
     dataType: "json",
     async: false,
     success: function(data) {
       console.log(data);
       $("#content").append(`
-      <link rel="stylesheet" href="/resource/css/member/member.css?xxxxxx" >
-<link rel="stylesheet" href="/resource/css/chatting/chat.css?x">
+      <link rel="stylesheet" href="/resource/css/member/member.css?sxss" >
+      <script src="/resource/js/member/friendSetting.js"></script>
       <section class="wrapper"> 
       <nav class="gnb"> 
          <a href="#" title="메모장 이동">MEMO</a>
       </nav><!-- gnb end -->
-      <main class="container friend-list">
-
-         <form>
+      <main class="container friend-setting">
+         <form action="friendSetting" method="post">
          <div class="menu">
-         	<span class="left"></span>
-            <span class="center">친구</span>
-            <span class="right" onclick="location.href='friendSetting'"><i class="fas fa-bars"></i></span>
+         	<span class="left" onclick="location.href='friendList'"><i class="fas fa-chevron-left"></i></span>
+            <span class="center">친구 설정</span>
+            <span class="right"></span>
          </div>
-         <div class="friend">
-	         <div class="box inline">  
-	         	<img src="/resource/images/${data[0].profileImg}" alt="image" class="profile" id="img" data-nickname="${data[0].nickName}" data-statusmsg="${data[0].statusMsg}" data-img="${data[0].profileImg}" >
-           </div>
-           <div class="inline" id ="ajStatusMsg"> </div>
+		 <div style="display: none" id="data">
+         <input type="hidden" name="friendsId" value=""/>
+         <input type="hidden" name="cmd" value=""/>
          </div>
-       <hr>
+         <p class="block-friend" id="block">차단한 친구</p>
+         <hr>
+      <div id="blockedFriend"></div>
 
-       <div id ="ajFriendList"></div>
+         <p class="add-friend">나를 추가한 친구</p>
+         <hr>
 
-			 <div id="anno" style="display:none">
-				추가							
-			</div>
+         <div id="addedMeFriend"></div>
+
+         <div id="anno" style="display:none">
+			추가							
+		</div>
          </form>
          
       </main>
    </section>
-   
-   <div class="popup friendSetting">
-		<div class="popup-wrap">
-			<div class="popup-container">				
-        <div class="profile">
-        
-					<figure>
-						<img id="popupImg" src="" alt="">
-          </figure>
-          
-					<ul>
-						<li class="title" id="popId"></li>
-						<li id="popupStatusMsg"></li>
-					</ul>
-				</div>
-				<nav class="btn-area">
-					<ul >
-						<li>
-							<a href="#" id="chatting" class="btn">1:1채팅</a>
-							<a href="#" id="block" class="btn">차단</a>
-						</li>
-					</ul>
-				</nav>
-				<a href="#" class="btn-close fas fa-times" onclick="popupClose()">닫기</a>
-			</div>
-		</div>
-	</div>
-	<div class="mask"></div>
       `);
 
-    if(data[0].statusMsg == null || data[0].statusMsg == ""){
-      $("#ajStatusMsg").append(`<p><b>${data[0].nickName}</b></p>`);
-    }else{
-      $("#ajStatusMsg").append(`<p><b>${data[0].nickName}</b></p> <p>${data[0].statusMsg}</p>`);
-    }
-  
-    // if(data[2] != 0){
-    //   $("#ajFriendList").append(`<p class="list-count">친구 ${data[2]}</p>`);
-    //   for(let i = 0;i<data[2];i++){
-    //     $("#ajStatusMsg").append(`<div class="list" id="friendsId${data[1][i].id}">
-    //     <div class="friend">
-    //         <div class="box inline">  
-    //           <img src="/resource/images/${data[1][i].profileImg}" alt="image1" class="profile" id="img_${i}" 
-    //           data-id="${data[1][i].id}" data-nickname="${data[1][i].nickName}" data-statusmsg="${data[1][i].statusMsg}" data-img="${data[1][i].profileImg}">
-    //         </div>
-    //     </div>
-    //     <div id="ajInline"></div>
-    //     `);
-    //     if(data[1][i].statusMsg != null || data[1][i].statusMsg != ""){
-    //       $("#ajInline").append(`
-    //       <div class="inline">
-    //         <p id="nickName"><b>${data[1][i].nickName}</b></p>
-    //         <p id="statusMsg">${data[1][i].statusMsg}</p>
-    //       </div>
-    //       `);
-    //     }else{
-    //       $("#ajInline").append(`
-    //           <div class="inline empty">
-    //                 <p><b>${data[1][i].nickName}</b></p>
-    //               </div>
-    //       `);
-    //     }
-    //   }
-    // }else{
-    //   $("#ajFriendList").append(`<p class="no-friend">아래의 친구 추가를<br>눌러 친구를 추가해 보세요.</p>`);
-    // }
+      for(let i=0;i<data[0].length;i++){
+        $("#blockedFriend").append(`
+        <div class="flex friend">
+        <div class="box">  
+          <img src="/resource/images/${data[0][i].profileImg}" alt="image1" class="profile">
+        </div>
+        
+        <div class="child-flex" id="bFriendStatusMsg${data[0][i].id}"></div>
+
+        <div class="child-flex">
+          <input type="button" class="find-btn" value="추가" name="userIhaveblocked_addBtn_${i}" data-id="${data[0].id}" />
+          <input type="button" class="find-btn" value="해제" name="userIhaveblocked_unBlockBtn_${i}" data-id="${data[0].id}"/>
+        </div>
+      </div>
+        `);
+        if(data[0][i].statusMsg == ""){
+          $(`#bFriendStatusMsg${data[0][i].id}`).append(`
+          <div class="child-flex empty">
+          <p><b>${data[0][i].nickName}</b></p>
+        </div>
+          `);
+        }else{
+          $(`#bFriendStatusMsg${data[0][i].id}`).append(`
+          <div class="child-flex">
+          <p><b>${data[0][i].nickName}</b></p>
+          <p>${data[0][i].statusMsg}</p>
+        </div>
+          `);
+        }
+
+      }// for(b) -end
+
+      for(let j=0;j<data[1].length;j++){
+        $("#addedMeFriend").append(`
+          <div class="flex friend">
+        <div class="box">  
+          <img src="/resource/images/${data[1][j].profileImg}" alt="image1" class="profile">
+        </div>
+
+        <div class="child-flex" id="aFriendStatusMsg${data[1][j].id}"></div>   
+
+        <div class="child-flex">
+          <input type="button" class="find-btn" value="추가" name="userWhoHaveAddedMe_addBtn_${j}" data-id="${data[1][j].id}"/>
+          <input type="button" class="find-btn" value="차단" name="userWhoHaveAddedMe_blockBtn_${j}" data-id="${data[1][j].id}"/>
+        </div>
+      </div>`);
+
+        if(data[1][j].statusMsg == ""){
+          $(`#bFriendStatusMsg${data[1][j].id}`).append(`
+          <div class="child-flex empty">
+          <p><b>${data[1][j].nickName}</b></p>
+        </div>
+          `);
+        }else{
+          $(`#bFriendStatusMsg${data[1][j].id}`).append(`
+          <div class="child-flex">
+          <p><b>${data[1][j].nickName}</b></p>
+          <p>${data[1][j].statusMsg}</p>
+        </div>
+          `);
+        }
+
+      }// for(a) -end
+
+ 
 
     }
-
   });
 
-       
+//   $(function() {
+//     url = "/member/addFriend";
+//     state = "";
+//     history.pushState(state, title, url);
+//     $("#content").append(`
+//     <link rel="stylesheet" href="/resource/css/member/member.css?sxss" >
+//       <section class="wrapper"> 
+//       <nav class="gnb"> 
+//          <a href="#" title="메모장 이동">MEMO</a>
+//       </nav><!-- gnb end -->
+//       <main class="container friend-add">
+//          <form action="addFriend" method="post" id="frm">
+//          <input type="hidden" name="id" value="user1">
+//             <div class="menu">
+//                <span class="left"></span>
+//                <span class="center">친구 추가</span>
+//                <span class="right" onclick="location.href='friendList'"><i class="fas fa-times"></i></span>
+//             </div>
+            
+//             <input type="hidden" name="friendsId" id="friendsId" value=""/>
+//             <div class="inline" id="search">
+//                <input type="text" value="" id="searchword" name="searchword" placeholder="아이디로 검색하세요"/>
+//                <button type="button" class="fas fa-search"></button>
+//             </div>
+//            <div class="add-list" id="add-list">
+//             </div> 
+//             <div id="anno" style="display:none">
+// 			추가							
+// 		</div>
+            
+//          <div class="bottombutton">
+//             <button type="button" class="btn on"  onclick="location.href='friendList'">
+//                <i class="fas fa-user">친구목록</i>
+//                <!-- <i class="fas fa-user-plus">친구추가</i> -->
+//             </button>
+//             <button class="btn">
+//                <i class="fas fa-comments">채팅목록</i> 
+//                <!-- <span class="btn-chatadd">
+//                   <span class="hidden">채팅추가</span>
+//                   <i class="fas fa-comments"></i>
+//                   <i class="fas fa-plus"></i>
+//                </span> -->
+//             </button>
+//             <button class="btn">
+//                <i class="fas fa-cog">설정</i>
+//             </button>
+//          </div>
+//          </form>
+//       </main><!-- container end -->
+//    </section><!-- wrapper end -->
+//    <div class="popup alert">
+//       <div class="popup-wrap">
+//          <div class="context">
+//             <p>회원가입이 완료되었습니다.</p>
+//          </div>
+//          <div class="btn-area">
+//             <a href="#" class="btn">취소</a>
+//             <a href="#" class="btn">확인</a>
+//          </div>
+//          <a href="#" class="btn-close">닫기</a>
+//       </div>
+//    </div>
+//    <div class="mask"></div>
+//       `);
+//   });
+
+//   $(function() {
+//     url = "/member/agree";
+//     state = "";
+//     history.pushState(state, title, url);
+//   $("#content").append(`
+//   <link rel="stylesheet" href="/resource/css/member/member.css?x" >
+//   <section class="wrapper"> 
+//   <nav class="gnb"> 
+//      <a href="#" title="메모장 이동">MEMO</a>
+//   </nav><!-- gnb end -->
+//   <main class="container">
+//      <form class="agreeform" method="post" action="agree">
+//         <div class="menu">
+//           <span class="left"><i class="fas fa-chevron-left"></i></span>
+//           <span class="center">약관동의</span>
+//           <span class="right"></span>
+//         </div>
+//         <div class="agree">
+//         <!-- 약관 링크 -->
+//         </div>
+        
+//         <div class="agree-btn">
+//            <button type="button" class="left-btn"  onclick="location.href='login';">취소</button>
+//            <button type="button" class="right-btn" onclick="location.href='join';" name="agree">동의</button>
+//         </div>
+//      </form>
+//   </main><!-- container end -->
+// </section><!-- wrapper end -->
+// <div class="popup alert">
+//   <div class="popup-wrap">
+//      <div class="context">
+//         <p>일반 팝업창입니다.</p>
+//      </div>
+//      <div class="btn-area">
+//         <a href="#" class="btn">취소</a>
+//         <a href="#" class="btn">확인</a>
+//      </div>
+//      <a href="#" class="btn-close">닫기</a>
+//   </div>
+// </div>
+// <div class="mask"></div>`);
+//   });
+
+//   $(function() {
+//     url = "/member/find";
+//     state = "";
+//     history.pushState(state, title, url);
+//     $("#content").append(`
+//     <link rel="stylesheet" href="/resource/css/member/member.css?xxx" >
+//        <section class="wrapper"> 
+//        <nav class="gnb"> 
+//           <a href="#" title="메모장 이동">MEMO</a>
+//        </nav><!-- gnb end -->
+//        <main class="container">
+//           <form action="find" method="post">
+//             <div class="menu">
+//               <span class="left" onclick="location.href='login';"><i class="fas fa-chevron-left"></i></span>
+//                <span class="center">아이디/비밀번호 찾기</span>
+//                <span class="right"></span>
+//             </div>
+                
+//             <div class="find">
+//               <div>
+//                    <span>아이디 찾기</span>
+//                 </div>
+//                 <div class="text-center"> 
+//                   <input type="text" name="email"  value="" placeholder="이메일 입력"/>
+//                   <input type="button" class="find-btn" id="findId" value="아이디 찾기"/>
+//                </div>
+//                <div>
+//                    <span>비밀번호 찾기</span>
+//                 </div>
+//                 <div  class="text-center">
+//                   <input type="text" value="" name="id" placeholder="아이디 입력"/>
+//                   <input type="text" value="" name="email2" placeholder="이메일 입력"/>
+//                   <input type="button" class="find-btn" id="findPwd" value="비밀번호 찾기"/>
+//                </div>
+//             </div>
+            
+//              <div class="agree-btn">
+//               <button type="button" class="left-btn" onclick="location.href='login';">취소</button>
+//                <button type="button" class="right-btn" onclick="location.href='login';">로그인</button>
+//             </div> 
+//             <div id="anno" style="display:none">
+//          추가							
+//        </div>
+//           </form>      
+//        </main><!-- container end -->
+//     </section><!-- wrapper end -->
+//     <div class="popup alert">
+//      <div class="popup-wrap">
+//        <div class="popup-container">
+//          <div class="context">
+//            <p id="popup-text"></p>
+//          </div><!-- context -->
+//           <div class="btn-area">
+//            <a href="" class="btn" onclick="closePopUp()">취소</a>
+//            <a href="" class="btn" onclick="closePopUp()">확인</a>
+//          </div> 
+//          <a href="" class="btn-close fas fa-times" onclick="closePopUp()">닫기</a>
+//        </div><!-- popup-container -->
+//      </div><!-- popup-wrap -->
+//    </div><!-- popup -->
+//    <div class="mask"></div>
+//    `);
+//   });
+
+//   $(function() {
+//     url = "/member/login";
+//     state = "";
+//     history.pushState(state, title, url);
+//     $("#content").append(`
+//     <link rel="stylesheet" href="/resource/css/member/member.css?x" >
+// <form action="login" method="post">
+// <main>
+//      <div>
+//          <p>TINC</p>
+//       </div>
+//       <div>
+//          <p>메모와 채팅을 동시에</p>
+//       </div>
+
+//      <div>
+//         <input type="text" name="username" value=""  placeholder="아이디"/> 
+//          <input type="password" name="password" value=""  placeholder="비밀번호"/>
+//          <input type="submit" value="로그인"/>
+//      </div>
+     
+//      <div>
+//          <p><button type="button" onclick="location.href='find';">아이디/비밀번호 찾기</button></p>
+//       </div>
+     
+//      <div>
+//          <span><i class="fas fa-chevron-up"></i></span><br>
+//        <span><button type="button" onclick="location.href='agree';">회원가입</button></span> 	
+//      </div>
+//    </form>
+// </main><!-- container end -->
+// <div class="popup alert">
+// <div class="popup-wrap">
+//    <div class="context">
+//       <p>회원가입이 완료되었습니다.</p>
+//    </div>
+//    <div class="btn-area">
+//       <a href="#" class="btn">취소</a>
+//       <a href="#" class="btn">확인</a>
+//    </div>
+//    <a href="#" class="btn-close">닫기</a>
+// </div>
+// </div>
+// <div class="mask"></div>`);
+//   });
+
+//   $(function() {
+//     url = "/member/join";
+//     state = "";
+//     history.pushState(state, title, url);
+//     $("#content").append(`
+//     <link rel="stylesheet" href="/resource/css/member/member.css?x" >
+//     <section class="wrapper"> 
+//       <nav class="gnb"> 
+//          <a href="#" title="메모장 이동">MEMO</a>
+//       </nav><!-- gnb end -->
+//       <main class="container">
+//          <form method="post" id="frm">
+//             <div class="menu">
+//                <span class="left" onclick="location.href='agree'"><i class="fas fa-chevron-left" ></i></span>
+//                <span class="center">회원가입</span>
+//                <span class="right"></span>
+//             </div>
+           
+//             <div class="join center">
+// 	         <div class="usable">
+// 	            <div><input type="text" id="id-input" value="" name="id" placeholder="아이디"/></div>
+// 	            <div><p><b id="validate-id"></b></p></div>
+// 	         </div>   
+// 	         <div class="usable">
+// 	            <div><input type="text" value="" id="nickName-input" name="nickName" placeholder="닉네임"/></div>
+// 	            <div><p><b id="validate-nickName"></b></p></div>
+// 	         </div>
+// 	         <div class="usable">
+// 	            <input type="password" id="pwd1-input" value="" name="password" placeholder="비밀번호"/>
+// 	            <div><p><b id="validate-pwd1"></b></p></div>
+// 	         </div>
+// 	         <div class="usable">
+// 	            <input type="password" id="pwd2-input" value="" name="password2" placeholder="비밀번호 확인"/>
+// 	            <div><p><b id="validate-pwd2"></b></p></div>
+// 	         </div>
+// 	         <div class="usable">
+// 	            <input type="tel" id="phoneNum-input" value="" name="phoneNum" placeholder="전화번호"/>
+// 	            <div><p><b id="validate-phone"></b></p></div>
+// 	         </div>
+// 	         <div class="usable"> 
+// 	            <input type="text" value="" id="email-input" name="email" placeholder="이메일"/>
+// 	            <div><p><b id="validate-email"></b></p></div>
+// 	         </div>
+//          </div>
+            
+//             <div class="agree-btn">
+//                 <button type="button" class="left-btn"  onclick="location.href='agree'">취소</button>
+//                 <input type="submit" id="submit" class="right-btn" value="가입"/>
+//             </div>
+//          </form>
+//       </main><!-- container end -->
+//    </section><!-- wrapper end -->
+//    <div class="popup alert">
+//       <div class="popup-wrap">
+//          <div class="context">
+//             <p>회원가입이 완료되었습니다.</p>
+//          </div>
+//          <div class="btn-area">
+//             <a href="#" class="btn">취소</a>
+//             <a href="#" class="btn">확인</a>
+//          </div>
+//          <a href="#" class="btn-close">닫기</a>
+//       </div>
+//    </div>
+//    <div class="mask"></div>
+//     `);
+//   });
+
 });

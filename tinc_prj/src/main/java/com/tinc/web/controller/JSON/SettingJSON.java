@@ -24,8 +24,8 @@ public class SettingJSON {
 	@ResponseBody
 	@GetMapping("")
 	public String setting(Principal principal, Member member) {
-		String id = "user1";
-//	      String id = principal.getName();
+//		String id = "user1";
+	    String id = principal.getName();
 		System.out.println(id);
 
 		List<String> list = new ArrayList<String>();
