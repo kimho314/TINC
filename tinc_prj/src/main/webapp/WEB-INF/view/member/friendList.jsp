@@ -33,7 +33,12 @@
          </div>
          <div class="friend">
 	         <div class="box inline">  
+	         <c:if test="${not empty myprofile.profileImg}">
 	         	<img src="../../../resource/images/${myprofile.profileImg}" alt="image" onclick="location.href='../setting'" class="profile" data-nickname="${myprofile.nickName}" data-statusmsg="${myprofile.statusMsg}" data-img="${myprofile.profileImg}" >
+	         </c:if>
+	         <c:if test="${empty myprofile.profileImg}">
+	         	<img src="../../../resource/images/profile.jpg" alt="image" onclick="location.href='../setting'" class="profile" data-nickname="${myprofile.nickName}" data-statusmsg="${myprofile.statusMsg}" data-img="${myprofile.profileImg}" >
+	         </c:if>
 	         </div>
 	         <c:if test="${not empty myprofile.statusMsg}">
          	 <div class="inline">
@@ -42,7 +47,7 @@
          	 </div>
          	</c:if>
          	<c:if test="${empty myprofile.statusMsg}">
-         	<div class="inline">
+         	<div class="inline empty">
 	         	<p><b>${myprofile.nickName}</b></p>
          	</div>
          	</c:if>
