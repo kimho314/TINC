@@ -5,6 +5,19 @@ $(document).ready(function() {
 	console.log($(location).attr("pathname"));
 	console.log(url.split("/")[1]);
 
+	$(".hrefBtn").click(function(e) {
+		e.preventdefault();
+		if (e.target.href != null) {
+			urlChange(e.target.href);
+		} else if (e.target.value != null) {
+			urlChange(e.target.value);
+		} else {
+			urlChange(url);
+		}
+		buttomBtn();
+		pageLoad();
+	});
+
 	$("#bottomButton").click(function(e) {
 		$("#bottomButton *").remove();
 		if (e.target.name != null) {
@@ -129,10 +142,10 @@ $(document).ready(function() {
 							</div>
 	
 							<div>
-							 <div class="set-line" id="setting-edit-pwd">비밀번호 변경</div>
+							 <div class="set-line hrefBtn" id="setting-edit-pwd" value="change-pwd">비밀번호 변경</div>
 							</div>
 							<div>
-							 <div class="set-line" id="setting-secession">탈퇴하기</div>
+							 <div class="set-line hrefBtn" id="setting-secession" value="withdraw">탈퇴하기</div>
 							</div>
 	
 							<div class="set-line">공개설정</div>
@@ -169,7 +182,7 @@ $(document).ready(function() {
 							<div></div>
 						 </form>
 					</main>
-					<div id="setPopUp"></div>
+					<div id="setPopUp" class="hrefBtn" value="logout"></div>
 				 </section>`,
 					);
 					if (data[0].profileImg == null) {
@@ -269,10 +282,11 @@ $(document).ready(function() {
 							</div>
 							
 							<div class="btn-area">
-							<input class="btn" id="cancle-edit-pwd" type="button" value="취소"/>
-							<input class="btn" id="ok-edit-pwd" type="submit" value="확인"/>
+							<input class="btn" id="cancle-edit-pwd" type="button" value="취소" onclick="$("#edit-click").trigger("click") />
+							<input class="btn" id="ok-edit-pwd" type="submit" value="확인" onclick="$("#edit-click").trigger("click") />
+							<input id="edit-click" class="hrefBtn" type="hidden" value="/setting" />
 							</div>
-							<div class="btn-close fas fa-times">닫기</div>
+							<div class="btn-close fas fa-times hrefBtn" value="/setting">닫기</div>
 							</form>
 							</div>
 							</div>
@@ -293,12 +307,12 @@ $(document).ready(function() {
 								<p>로그아웃 하시겠습니까?</p>
 							</div>
 		
-							<div class="btn-area">
+							<div class="btn-area"> <!-- 여긴 창전환 시켜서 /member/logout로 보내면됨 -->
 								<button class="btn" id="logout-cancle">취소</button>
 								<button class="btn" id="logout-ok">확인</button>
 							</div>
 		
-							<div class="btn-close fas fa-times">닫기</div>
+							<div class="btn-close fas fa-times hrefBtn" value="/setting">닫기</div>
 						</div>
 					</div>
 				</div>
@@ -318,10 +332,11 @@ $(document).ready(function() {
 							 <p>탈퇴 하시겠습니까?</p>
 							</div>
 							<div class="btn-area">
-							 <input type="button" class="btn" id="withdraw-cancle1" value="취소"/>
+							 <input type="button" class="btn" id="withdraw-cancle1" value="취소" onclick="$("#withdraw-cancle2-click").trigger("click") />
 							 <input type="button" class="btn" id="withdraw-ok1" value="확인"/>
+							 <input id="withdraw-cancle1-click" class="hrefBtn" type="hidden" value="/setting" />
 							</div>
-							<div class="btn-close fas fa-times">닫기</div>
+							<div class="btn-close fas fa-times hrefBtn" value="/setting">닫기</div>
 						 </form>
 		
 						 <form class="popup-container" id="withdrawA2">
@@ -332,10 +347,11 @@ $(document).ready(function() {
 							 </div>
 							</div>
 							<div class="btn-area">
-							 <input type="button" class="btn" id="withdraw-cancle2" value="취소"/>
-							 <input type="submit" class="btn" id="withdraw-ok2" value="확인"/>
+							 <input type="button" class="btn" id="withdraw-cancle2" value="취소" onclick="$("#withdraw-cancle2-click").trigger("click") />
+							 <input type="submit" class="btn" id="withdraw-ok2" value="확인"/> <!-- 확인버튼 클릭시 창전환 시켜서 로그인창 보내줘야됨 -->
+							 <input id="withdraw-cancle2-click" class="hrefBtn" type="hidden" value="/setting" />
 							</div>
-							<div class="btn-close fas fa-times">닫기</div>
+							<div class="btn-close fas fa-times hrefBtn" value="/setting">닫기</div>
 						 </form>
 		
 					</div>
@@ -361,7 +377,7 @@ $(document).ready(function() {
 					<link rel="stylesheet" type="text/css" href="/resource/css/chatting/chat.css?vvvv" >
 					<section class="wrapper">
 						<nav class="gnb">
-							<a href="#" title="메모장 이동">MEMO</a>
+							<a href="/memo/list" class="hrefBtn" title="메모장 이동">MEMO</a>
 						</nav>
 						<main class="container hasbtn">
 							<div class="topBox">
@@ -451,18 +467,18 @@ $(document).ready(function() {
 				<script src="/resource/js/chatting/uiUtil.js"></script>
 				<section class="wrapper">
 				<nav class="gnb">
-					<a href="#" title="메모장 이동">MEMO</a>
+					<a href="/memo/list" class="hrefBtn" title="메모장 이동">MEMO</a>
 				</nav>
 				<main class="container friend-list">
 					<form>
 					<div class="menu">
 						<span class="left"></span>
 						<span class="center">친구</span>
-						<span class="right" onclick="location.href='friendSetting'" ><i class="fas fa-bars"></i></span>
+						<span class="right hrefBtn" value="/member/friendSetting" ><i class="fas fa-bars"></i></span>
 					</div>
 					<div class="friend">
 						<div class="box inline">
-							<img src="/resource/images/${data[0].profileImg}" alt="image" onclick="location.href='../setting'" class="profile" data-nickname="${data[0].nickName}" data-statusmsg="${data[0].statusMsg}" data-img="${data[0].profileImg}" >
+							<img src="/resource/images/${data[0].profileImg}" alt="image" value="/setting" class="profile" data-nickname="${data[0].nickName}" data-statusmsg="${data[0].statusMsg}" data-img="${data[0].profileImg}" >
 					  </div>
 					  <div class="inline" id="ajStatusMsg">
 					  </div>
@@ -492,12 +508,13 @@ $(document).ready(function() {
 						<nav class="btn-area">
 							<ul >
 								<li>
-									<a href="#" id="chatting" class="btn">1:1채팅</a>
-									<a href="#" id="block" class="btn">차단</a>
+								<!-- 여기 a태그들은 페이지 안에서 처리하는거라 자바스크립트 따로있거나, 만들어야되는부분들 -->
+									<a href="#" id="chatting hrefBtn" class="btn">1:1채팅</a>
+									<a href="#" id="block hrefBtn" class="btn">차단</a>
 								</li>
 							</ul>
 						</nav>
-						<a href="#" class="btn-close fas fa-times" onclick="popupClose()">닫기</a>
+						<a href="#" class="btn-close fas fa-times hrefBtn" onclick="popupClose()">닫기</a>
 					</div>
 				</div>
 			</div>
@@ -672,12 +689,12 @@ $(document).ready(function() {
 			  <script src="/resource/js/member/friendSetting.js"></script>
 			  <section class="wrapper">
 			  <nav class="gnb">
-				  <a href="#" title="메모장 이동">MEMO</a>
-			  </nav><!-- gnb end -->
+				  <a href="/memo/list" class="hrefBtn" title="메모장 이동">MEMO</a>
+			  </nav>
 			  <main class="container friend-setting">
 				  <form action="friendSetting" method="post">
 				  <div class="menu">
-					  <span class="left" onclick="location.href='friendList'"><i class="fas fa-chevron-left"></i></span>
+					  <span class="left hrefBtn" value="/member/friendList"><i class="fas fa-chevron-left"></i></span>
 					  <span class="center">친구 설정</span>
 					  <span class="right"></span>
 				  </div>
@@ -775,18 +792,18 @@ $(document).ready(function() {
 			history.pushState(state, title, url);
 			$("#content *").remove();
 			$("#content").append(`
-			<link rel="stylesheet" href="/resource/css/member/member.css?sxss" >
+			<link rel="stylesheet" href="/resource/css/member/member.css" >
 			  <section class="wrapper">
 			  <nav class="gnb">
-				  <a href="#" title="메모장 이동">MEMO</a>
-			  </nav><!-- gnb end -->
+				  <a href="/memo/list" class="hrefBtn" title="메모장 이동">MEMO</a>
+			  </nav>
 			  <main class="container friend-add">
 				  <form action="addFriend" method="post" id="frm">
 				  <input type="hidden" name="id" value="user1">
 					  <div class="menu">
 						  <span class="left"></span>
 						  <span class="center">친구 추가</span>
-						  <span class="right" onclick="location.href='friendList'"><i class="fas fa-times"></i></span>
+						  <span class="right hrefBtn" value="/member/friendList"><i class="fas fa-times"></i></span>
 					  </div>
   
 					  <input type="hidden" name="friendsId" id="friendsId" value=""/>
@@ -801,8 +818,9 @@ $(document).ready(function() {
 			  </div>
   
 				  </form>
-			  </main><!-- container end -->
-		  </section><!-- wrapper end -->
+			  </main>
+		  </section>
+		  <!-- 친추추가에 회원가입 팝업창이 왜있지 ㄷㄷ. -->
 		  <div class="popup alert">
 			  <div class="popup-wrap">
 				  <div class="context">
@@ -817,119 +835,6 @@ $(document).ready(function() {
 		  </div>
 		  <div class="mask"></div>
 			  `);
-		});
-	}
-
-	if (url == "/member/agree") {
-		$(function() {
-			url = "/member/agree";
-			state = "";
-			history.pushState(state, title, url);
-			$("#content *").remove();
-			$("#content").append(`
-		 <link rel="stylesheet" href="/resource/css/member/member.css?x" >
-		 <section class="wrapper">
-		 <nav class="gnb">
-			 <a href="#" title="메모장 이동">MEMO</a>
-		 </nav><!-- gnb end -->
-		 <main class="container">
-			 <form class="agreeform" method="post" action="agree">
-				 <div class="menu">
-					<span class="left"><i class="fas fa-chevron-left"></i></span>
-					<span class="center">약관동의</span>
-					<span class="right"></span>
-				 </div>
-				 <div class="agree">
-				 <!-- 약관 링크 -->
-				 </div>
-  
-				 <div class="agree-btn">
-					 <button type="button" class="left-btn"  onclick="location.href='login';">취소</button>
-					 <button type="button" class="right-btn" onclick="location.href='join';" name="agree">동의</button>
-				 </div>
-			 </form>
-		 </main><!-- container end -->
-	  </section><!-- wrapper end -->
-	  <div class="popup alert">
-		 <div class="popup-wrap">
-			 <div class="context">
-				 <p>일반 팝업창입니다.</p>
-			 </div>
-			 <div class="btn-area">
-				 <a href="#" class="btn">취소</a>
-				 <a href="#" class="btn">확인</a>
-			 </div>
-			 <a href="#" class="btn-close">닫기</a>
-		 </div>
-	  </div>
-	  <div class="mask"></div>`);
-		});
-	}
-
-	if (url == "/member/find") {
-		$(function() {
-			url = "/member/find";
-			state = "";
-			history.pushState(state, title, url);
-			$("#content *").remove();
-			$("#content").append(`
-			<link rel="stylesheet" href="/resource/css/member/member.css?xxx" >
-				<section class="wrapper">
-				<nav class="gnb">
-					<a href="#" title="메모장 이동">MEMO</a>
-				</nav><!-- gnb end -->
-				<main class="container">
-					<form action="find" method="post">
-					  <div class="menu">
-						 <span class="left" onclick="location.href='login';"><i class="fas fa-chevron-left"></i></span>
-						  <span class="center">아이디/비밀번호 찾기</span>
-						  <span class="right"></span>
-					  </div>
-  
-					  <div class="find">
-						 <div>
-								<span>아이디 찾기</span>
-							</div>
-							<div class="text-center">
-							  <input type="text" name="email"  value="" placeholder="이메일 입력"/>
-							  <input type="button" class="find-btn" id="findId" value="아이디 찾기"/>
-						  </div>
-						  <div>
-								<span>비밀번호 찾기</span>
-							</div>
-							<div  class="text-center">
-							  <input type="text" value="" name="id" placeholder="아이디 입력"/>
-							  <input type="text" value="" name="email2" placeholder="이메일 입력"/>
-							  <input type="button" class="find-btn" id="findPwd" value="비밀번호 찾기"/>
-						  </div>
-					  </div>
-  
-						<div class="agree-btn">
-						 <button type="button" class="left-btn" onclick="location.href='login';">취소</button>
-						  <button type="button" class="right-btn" onclick="location.href='login';">로그인</button>
-					  </div>
-					  <div id="anno" style="display:none">
-				  추가
-				</div>
-					</form>
-				</main><!-- container end -->
-			</section><!-- wrapper end -->
-			<div class="popup alert">
-			 <div class="popup-wrap">
-				<div class="popup-container">
-				  <div class="context">
-					 <p id="popup-text"></p>
-				  </div><!-- context -->
-					<div class="btn-area">
-					 <a href="" class="btn" onclick="closePopUp()">취소</a>
-					 <a href="" class="btn" onclick="closePopUp()">확인</a>
-				  </div>
-				  <a href="" class="btn-close fas fa-times" onclick="closePopUp()">닫기</a>
-				</div><!-- popup-container -->
-			 </div><!-- popup-wrap -->
-		  </div><!-- popup -->
-		  <div class="mask"></div>
-		  `);
 		});
 	}
 
