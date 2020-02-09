@@ -8,7 +8,7 @@ $(document).ready(function() {
 	$(function(){
 		$(".hrefBtn").click(function(e) {
 			console.log("hihi");
-			e.preventdefault();
+			console.log(e.target.value);
 			if (e.target.href != null) {
 				urlChange(e.target.href);
 				console.log("href"+e.target.href);
@@ -149,10 +149,10 @@ $(document).ready(function() {
 							</div>
 	
 							<div>
-							 <div class="set-line hrefBtn" id="setting-edit-pwd" value="change-pwd">비밀번호 변경</div>
+							 <a href="/setting/change-pwd" class="set-line hrefBtn" id="setting-edit-pwd">비밀번호 변경</a>
 							</div>
 							<div>
-							 <div class="set-line hrefBtn" id="setting-secession" value="withdraw">탈퇴하기</div>
+							 <a href="/setting/withdraw" class="set-line hrefBtn" id="setting-secession">탈퇴하기</a>
 							</div>
 	
 							<div class="set-line">공개설정</div>
@@ -185,11 +185,11 @@ $(document).ready(function() {
 								</div>
 							 </div>
 	
-							<div id="set-logout" value="logout">로그아웃</div>
+							<a href="/setting/logout" id="set-logout">로그아웃</a>
 							<div></div>
 						 </form>
 					</main>
-					<div id="setPopUp" class="hrefBtn" value="logout"></div>
+					<a id="setPopUp" class="hrefBtn" href="/setting/logout"></a>
 				 </section>`,
 					);
 					if (data[0].profileImg == null) {
@@ -291,9 +291,9 @@ $(document).ready(function() {
 							<div class="btn-area">
 							<input class="btn" id="cancle-edit-pwd" type="button" value="취소" onclick="$("#edit-click").trigger("click") />
 							<input class="btn" id="ok-edit-pwd" type="submit" value="확인" onclick="$("#edit-click").trigger("click") />
-							<input id="edit-click" class="hrefBtn" type="hidden" value="/setting" />
+							<a href="/setting" id="edit-click" class="hrefBtn" type="hidden"></a>
 							</div>
-							<div class="btn-close fas fa-times hrefBtn" value="/setting">닫기</div>
+							<a href="/setting" class="btn-close fas fa-times hrefBtn">닫기</a>
 							</form>
 							</div>
 							</div>
@@ -319,7 +319,7 @@ $(document).ready(function() {
 								<button class="btn" id="logout-ok">확인</button>
 							</div>
 		
-							<div class="btn-close fas fa-times hrefBtn" value="/setting">닫기</div>
+							<a class="btn-close fas fa-times hrefBtn" href="/setting">닫기</a>
 						</div>
 					</div>
 				</div>
@@ -341,9 +341,9 @@ $(document).ready(function() {
 							<div class="btn-area">
 							 <input type="button" class="btn" id="withdraw-cancle1" value="취소" onclick="$("#withdraw-cancle2-click").trigger("click") />
 							 <input type="button" class="btn" id="withdraw-ok1" value="확인"/>
-							 <input id="withdraw-cancle1-click" class="hrefBtn" type="hidden" value="/setting" />
+							 <a id="withdraw-cancle1-click" class="hrefBtn" type="hidden" href="/setting" ></a>
 							</div>
-							<div class="btn-close fas fa-times hrefBtn" value="/setting">닫기</div>
+							<a class="btn-close fas fa-times hrefBtn" href="/setting">닫기</a>
 						 </form>
 		
 						 <form class="popup-container" id="withdrawA2">
@@ -356,9 +356,9 @@ $(document).ready(function() {
 							<div class="btn-area">
 							 <input type="button" class="btn" id="withdraw-cancle2" value="취소" onclick="$("#withdraw-cancle2-click").trigger("click") />
 							 <input type="submit" class="btn" id="withdraw-ok2" value="확인"/> <!-- 확인버튼 클릭시 창전환 시켜서 로그인창 보내줘야됨 -->
-							 <input id="withdraw-cancle2-click" class="hrefBtn" type="hidden" value="/setting" />
+							 <a id="withdraw-cancle2-click" class="hrefBtn" type="hidden" href="/setting"></a>
 							</div>
-							<div class="btn-close fas fa-times hrefBtn" value="/setting">닫기</div>
+							<a class="btn-close fas fa-times hrefBtn" href="/setting">닫기</a>
 						 </form>
 		
 					</div>
@@ -482,7 +482,7 @@ $(document).ready(function() {
 					<div class="menu">
 						<span class="left"></span>
 						<span class="center">친구</span>
-						<span class="right hrefBtn" value="/member/friendSetting" ><i class="fas fa-bars"></i></span>
+						<a class="right hrefBtn" href="/member/friendSetting" ><i class="fas fa-bars"></i></a>
 					</div>
 					<div class="friend">
 						<div class="box inline" id="ajMyProfileImg">
@@ -713,7 +713,7 @@ $(document).ready(function() {
 			  <main class="container friend-setting">
 				  <form action="friendSetting" method="post">
 				  <div class="menu">
-					  <span class="left hrefBtn" value="/member/friendList"><i class="fas fa-chevron-left"></i></span>
+					  <a class="left hrefBtn" href="/member/friendList"><i class="fas fa-chevron-left"></i></a>
 					  <span class="center">친구 설정</span>
 					  <span class="right"></span>
 				  </div>
@@ -823,7 +823,7 @@ $(document).ready(function() {
 					  <div class="menu">
 						  <span class="left"></span>
 						  <span class="center">친구 추가</span>
-						  <span class="right hrefBtn" value="/member/friendList"><i class="fas fa-times"></i></span>
+						  <a class="right hrefBtn" href="/member/friendList"><i class="fas fa-times"></i></a>
 					  </div>
   
 					  <input type="hidden" name="friendsId" id="friendsId" value=""/>

@@ -121,4 +121,3 @@ $(function() {
        $("#withdrawA2").css("display","block");
     });
 });
-

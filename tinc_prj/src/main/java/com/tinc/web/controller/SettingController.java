@@ -51,8 +51,7 @@ public class SettingController {
          sb.append(tmpStr);
          model.addAttribute("imgs", sb);
       }
-      return "setting/setting";
-//      return "main";
+      return "main";
    }
    
    @PostMapping("")
