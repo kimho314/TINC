@@ -10,12 +10,11 @@
 <link rel="stylesheet" href="/resource/css/setting/setting.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/resource/js/setting/set.js"></script>
-<!-- <link rel="stylesheet" href="../../../resource/css/bottomButton.css"> -->
 </head>
 <body>
    <section class="wrapper"> 
       <nav class="gnb"> 
-         <a title="메모장 이동" id="goMemo">MEMO</a>
+         <a href="#" title="메모장 이동">MEMO</a>
       </nav><!-- gnb end -->
       <main class="container">
 

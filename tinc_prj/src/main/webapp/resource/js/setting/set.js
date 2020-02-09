@@ -119,5 +119,6 @@ $(function() {
     $("#withdraw-ok1").click(function(){
        $("#withdrawA1").hide();
        $("#withdrawA2").css("display","block");
-    })
+    });
 });
+

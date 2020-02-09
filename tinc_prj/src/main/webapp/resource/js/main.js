@@ -5,34 +5,42 @@ $(document).ready(function() {
 	console.log($(location).attr("pathname"));
 	console.log(url.split("/")[1]);
 
-	$(".hrefBtn").click(function(e) {
-		e.preventdefault();
-		if (e.target.href != null) {
-			urlChange(e.target.href);
-		} else if (e.target.value != null) {
-			urlChange(e.target.value);
-		} else {
-			urlChange(url);
-		}
-		buttomBtn();
-		pageLoad();
+	$(function(){
+		$(".hrefBtn").click(function(e) {
+			console.log("hihi");
+			e.preventdefault();
+			if (e.target.href != null) {
+				urlChange(e.target.href);
+				console.log("href"+e.target.href);
+			} else if (e.target.value != null) {
+				urlChange(e.target.value);
+				console.log("value"+e.target.value);
+			} else {
+				urlChange(url);
+				console.log(url);
+			}
+			buttomBtn();
+			pageLoad();
+		});
 	});
 
-	$("#bottomButton").click(function(e) {
-		$("#bottomButton *").remove();
-		if (e.target.name != null) {
-			urlChange(e.target.name);
-		} else {
-			urlChange(url);
-		}
-		buttomBtn();
-		pageLoad();
+	$(function(){
+		$("#bottomButton").click(function(e) {
+			$("#bottomButton *").remove();
+			if (e.target.name != null) {
+				urlChange(e.target.name);
+			} else {
+				urlChange(url);
+			}
+			buttomBtn();
+			pageLoad();
+		});
 	});
 
 	function urlChange(path) {
 		url = path;
 		history.pushState(state, title, url);
-	}
+	};
 
 	function buttomBtn() {
 		if (url == "/member/friendList" || url == "/member/friendSetting") {
@@ -96,7 +104,7 @@ $(document).ready(function() {
 	  </div>
 	  `);
 		}
-	}
+	};
 
 	function pageLoad() {
 		if (url.split("/")[1] == "setting") {
@@ -119,26 +127,25 @@ $(document).ready(function() {
 						 <div id="setting-head">
 							<span id="setting-title">설정</span>
 						 </div>
-	
 						 
 						 <form 
 					 action=""
 					 id="settingFileForm"
 					 enctype="multipart/form-data"
 					 method="POST">
-					 <input type='file' accept='image/*' id='mpImg' style="display:none;">
+					 <input type='file' accept='image/*' id='mpImg' style="display:none;"/>
 					 <div id="setMyImg"></div>
 					 </form>
 	
-						 <div><input id="myId" type="text" value="${data[0].nickName}"></div>
-						 <div><input id="myStatusMessage" type="text" placeholder="${data[0].statusMsg}" value=""></div>
+						 <div><input id="myId" type="text" value="${data[0].nickName}"/></div>
+						 <div><input id="myStatusMessage" type="text" placeholder="${data[0].statusMsg}" value=""/></div>
 						 <form id="setting-edit-form">
 							<div class="set-line">이메일
-							 <input id="settingEditEmail" type="text" placeholder="${data[0].email}" value="">
+							 <input id="settingEditEmail" type="text" placeholder="${data[0].email}" value=""/>
 							</div>
 	
 							<div class="set-line">전화번호
-							 <input id="settingEditPhone" type="text" placeholder="${data[0].phoneNum}" value="">
+							 <input id="settingEditPhone" type="text" placeholder="${data[0].phoneNum}" value=""/>
 							</div>
 	
 							<div>
@@ -178,7 +185,7 @@ $(document).ready(function() {
 								</div>
 							 </div>
 	
-							<div id="set-logout">로그아웃</div>
+							<div id="set-logout" value="logout">로그아웃</div>
 							<div></div>
 						 </form>
 					</main>
@@ -343,7 +350,7 @@ $(document).ready(function() {
 							<div class="context">
 							 <p>비밀번호를 한 번 더<br>입력해 주세요.</p>
 							 <div>
-								<input class="withdraw-pwd" name="checkPwd" type="text" value="" placeholder="비밀번호 입력">
+								<input class="withdraw-pwd" name="checkPwd" type="text" value="" placeholder="비밀번호 입력"/>
 							 </div>
 							</div>
 							<div class="btn-area">
@@ -600,8 +607,8 @@ $(document).ready(function() {
 		 <template id="memo-card-template">
 						<div class="memo-card">
 							 <div class="memo-card-title">
-								  <input type="text" name="memo-card-title" value="">
-						  <input type="hidden" name="memo-card-id" value="">
+								  <input type="text" name="memo-card-title" value=""/>
+						  <input type="hidden" name="memo-card-id" value=""/>
 							 </div>
 							 <div class="memo-card-content">
 								  <textarea readonly class="memo-card-content-textarea" name="memo-card-content-textarea"></textarea>
@@ -622,15 +629,15 @@ $(document).ready(function() {
 		  <div class="memo-list-wrapper">
 		  <div class="memo-list-title">
 			  <div></div>
-			  <input readonly type="text" name="memo-list-title" value="${data[0][j].title}">
-			  <input type="hidden" id="private-memo-list-id" name="private-memo-list-id" value="${data[0][j].id}">
+			  <input readonly type="text" name="memo-list-title" value="${data[0][j].title}"/>
+			  <input type="hidden" id="private-memo-list-id" name="private-memo-list-id" value="${data[0][j].id}"/>
 		  </div>
 
 		  <div class="memo-card-list-wrapper" id="groMemoList"></div>
 
 		  <div class="memo-list-add-wrapper">
 			  <div>
-				  <i class="fas fa-plus"></i><input type="button" name="memo-list-add-button" value="add">
+				  <i class="fas fa-plus"></i><input type="button" name="memo-list-add-button" value="add"/>
 			  </div>
 		  </div>
 	  </div>`);
@@ -656,15 +663,15 @@ $(document).ready(function() {
 		  <div class="memo-list-wrapper">
 		  <div class="memo-list-title">
 			  <div></div>
-			  <input readonly type="text" name="memo-list-title" value="${data[1][j].title}">
-			  <input type="hidden" id="group-memo-list-id" name="group-memo-list-id" value="${data[1][j].id}">
+			  <input readonly type="text" name="memo-list-title" value="${data[1][j].title}"/>
+			  <input type="hidden" id="group-memo-list-id" name="group-memo-list-id" value="${data[1][j].id}"/>
 		  </div>
 
 		  <div class="memo-card-list-wrapper" id="groMemoList"></div>
 
 		  <div class="memo-list-add-wrapper">
 			  <div>
-				  <i class="fas fa-plus"></i><input type="button" name="memo-list-add-button" value="add">
+				  <i class="fas fa-plus"></i><input type="button" name="memo-list-add-button" value="add"/>
 			  </div>
 		  </div>
 	  </div>`);
@@ -812,7 +819,7 @@ $(document).ready(function() {
 			  </nav>
 			  <main class="container friend-add">
 				  <form action="addFriend" method="post" id="frm">
-				  <input type="hidden" name="id" value="user1">
+				  <input type="hidden" name="id" value="user1"/>
 					  <div class="menu">
 						  <span class="left"></span>
 						  <span class="center">친구 추가</span>

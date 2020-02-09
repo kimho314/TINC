@@ -5,11 +5,6 @@
     margin-top: 1rem;
 }
 
-#return {
-    margin-left: 0.75rem;
-    color: #b2b2b2;
-}
-
 #setting-title{
     size: 0.9375rem;
     margin-top: -0.1875rem;
@@ -118,7 +113,7 @@ input[type="checkbox"] + label:after, input[type="checkbox"] + label:before {
     background: rgb(002, 210, 081);
     /* -moz-box-shadow:inset 0px 0px 10px rgb(136, 136, 136);
     -webkit-box-shadow:inset 0px 0px 10px rgb(136, 136, 136);
-    box-shadow:inset 0px 0px 10px rgb(136, 136, 136);  �궡遺� 洹몃┝�옄 */
+    box-shadow:inset 0px 0px 10px rgb(136, 136, 136);  */
 }
 .set-checkbox:checked + label.set-check:after {
     background: #ffff;
