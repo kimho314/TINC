@@ -27,9 +27,12 @@ public class ServiceContextConfig {
 		
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://192.168.0.7/tinc?autoReconnect=true&useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC"); 
+		dataSource.setUrl("jdbc:mysql://118.34.42.46/tinc?autoReconnect=true&useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC"); 
 		dataSource.setUsername("tinc"); 
 		dataSource.setPassword("33333"); 
+//		dataSource.setUrl("jdbc:mysql://192.168.0.7/tinc?autoReconnect=true&useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC"); 
+//		dataSource.setUsername("tinc"); 
+//		dataSource.setPassword("33333"); 
 		
 		return dataSource;
 	}

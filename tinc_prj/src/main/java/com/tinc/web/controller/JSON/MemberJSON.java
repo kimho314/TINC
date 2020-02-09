@@ -24,8 +24,7 @@ public class MemberJSON {
 	@ResponseBody
 	@GetMapping("friendList")
 	public String friendList(Principal principal) {
-//		String id = principal.getName();
-		String id = "user1";
+		String id = principal.getName();
 		
 		Gson gson = new Gson();
 		
@@ -44,8 +43,7 @@ public class MemberJSON {
 	@GetMapping("friendSetting")
 	public String friendSetting(Principal principal) {
 		
-//		String memberId = principal.getName();
-		String memberId = "user1";
+		String memberId = principal.getName();
 
 		Gson gson = new Gson();
 		List<String> list = new ArrayList<String>();

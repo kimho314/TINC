@@ -12,7 +12,7 @@
 <title>메모와 채팅을 동시에, TINC</title>
 </head>
 <body>
-	<div id="content"></div>
+	<div id="content" style="height: 100%;"></div>
 	<div id="bottomButton"></div>
 </body>
 </html>

@@ -105,14 +105,14 @@ $(document).ready(function() {
 				dataType: "json",
 				async: false,
 				success: function(data) {
-					console.log(data);
+					//console.log(data);
 					$("#content *").remove();
 					$("#content").append(
 						`<link rel="stylesheet" href="/resource/css/setting/setting.css">
 					<script src="/resource/js/setting/set.js"></script>
 					<section class="wrapper">
 					<nav class="gnb">
-						 <a title="메모장 이동" id="goMemo">MEMO</a>
+						<a href="/memo/list" class="hrefBtn" title="메모장 이동">MEMO</a>
 					</nav>
 					<main class="container">
 	
@@ -465,6 +465,7 @@ $(document).ready(function() {
 				<link rel="stylesheet" href="/resource/css/member/member.css?xxxxxx" >
 				<link rel="stylesheet" href="/resource/css/chatting/chat.css?x">
 				<script src="/resource/js/chatting/uiUtil.js"></script>
+				<script src="/resource/js/member/friendList.js"></script>
 				<section class="wrapper">
 				<nav class="gnb">
 					<a href="/memo/list" class="hrefBtn" title="메모장 이동">MEMO</a>
@@ -477,8 +478,8 @@ $(document).ready(function() {
 						<span class="right hrefBtn" value="/member/friendSetting" ><i class="fas fa-bars"></i></span>
 					</div>
 					<div class="friend">
-						<div class="box inline">
-							<img src="/resource/images/${data[0].profileImg}" alt="image" value="/setting" class="profile" data-nickname="${data[0].nickName}" data-statusmsg="${data[0].statusMsg}" data-img="${data[0].profileImg}" >
+						<div class="box inline" id="ajMyProfileImg">
+							
 					  </div>
 					  <div class="inline" id="ajStatusMsg">
 					  </div>
@@ -520,6 +521,17 @@ $(document).ready(function() {
 			</div>
 			<div class="mask"></div>
 				`);
+
+				if(data[0].profileImg !=""){
+					$("#ajMyProfileImg").append(`
+					<img src="/resource/images/${data[0].profileImg}" alt="image" value="/setting" class="profile" data-nickname="${data[0].nickName}" data-statusmsg="${data[0].statusMsg}" data-img="${data[0].profileImg}" >
+					`);
+				}else{
+					$("#ajMyProfileImg").append(`
+					<img src="/resource/images/profile.jpg" alt="image" value="/setting" class="profile" data-nickname="${data[0].nickName}" data-statusmsg="${data[0].statusMsg}" data-img="${data[0].profileImg}" >
+					`);
+				}
+
 					if (data[0].statusMsg == "") {
 						$("#ajStatusMsg").append(`
 				  <p><b>${data[0].nickName}</b></p>
@@ -793,6 +805,7 @@ $(document).ready(function() {
 			$("#content *").remove();
 			$("#content").append(`
 			<link rel="stylesheet" href="/resource/css/member/member.css" >
+			<script src="/resource/js/member/addFriend.js"></script>
 			  <section class="wrapper">
 			  <nav class="gnb">
 				  <a href="/memo/list" class="hrefBtn" title="메모장 이동">MEMO</a>
@@ -820,20 +833,6 @@ $(document).ready(function() {
 				  </form>
 			  </main>
 		  </section>
-		  <!-- 친추추가에 회원가입 팝업창이 왜있지 ㄷㄷ. -->
-		  <div class="popup alert">
-			  <div class="popup-wrap">
-				  <div class="context">
-					  <p>회원가입이 완료되었습니다.</p>
-				  </div>
-				  <div class="btn-area">
-					  <a href="#" class="btn">취소</a>
-					  <a href="#" class="btn">확인</a>
-				  </div>
-				  <a href="#" class="btn-close">닫기</a>
-			  </div>
-		  </div>
-		  <div class="mask"></div>
 			  `);
 		});
 	}

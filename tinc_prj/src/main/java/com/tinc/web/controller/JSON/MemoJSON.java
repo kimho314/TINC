@@ -57,8 +57,8 @@ public class MemoJSON {
 	public String list(Principal principal, @RequestParam(name="crId", defaultValue="0") String crId)
 	{
 		String mId = "";
-		//mId = principal.getName();
-		mId = "user2";
+		mId = principal.getName();
+
 		
 		List<String> list = new ArrayList<String>();
 		Gson gson = new Gson();
