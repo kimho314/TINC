@@ -7,7 +7,6 @@ $(document).ready(function() {
 
 	$(function(){
 		$(".hrefBtn").click(function(e) {
-			console.log("hihi");
 			console.log(e.target.value);
 			if (e.target.href != null) {
 				urlChange(e.target.href);
@@ -148,11 +147,11 @@ $(document).ready(function() {
 							 <input id="settingEditPhone" type="text" placeholder="${data[0].phoneNum}" value=""/>
 							</div>
 	
-							<div>
-							 <a href="/setting/change-pwd" class="set-line hrefBtn" id="setting-edit-pwd">비밀번호 변경</a>
+							<div class="set-line">
+							 <a href="/setting/change-pwd" class="hrefBtn" id="setting-edit-pwd">비밀번호 변경</a>
 							</div>
-							<div>
-							 <a href="/setting/withdraw" class="set-line hrefBtn" id="setting-secession">탈퇴하기</a>
+							<div class="set-line">
+							 <a href="/setting/withdraw" class="hrefBtn" id="setting-secession">탈퇴하기</a>
 							</div>
 	
 							<div class="set-line">공개설정</div>
@@ -185,11 +184,11 @@ $(document).ready(function() {
 								</div>
 							 </div>
 	
-							<a href="/setting/logout" id="set-logout">로그아웃</a>
+							<a href="/setting/logout" class="hrefBtn" id="set-logout">로그아웃</a>
 							<div></div>
 						 </form>
 					</main>
-					<a id="setPopUp" class="hrefBtn" href="/setting/logout"></a>
+					<div id="setPopUp"></div>
 				 </section>`,
 					);
 					if (data[0].profileImg == null) {
@@ -289,9 +288,8 @@ $(document).ready(function() {
 							</div>
 							
 							<div class="btn-area">
-							<input class="btn" id="cancle-edit-pwd" type="button" value="취소" onclick="$("#edit-click").trigger("click") />
-							<input class="btn" id="ok-edit-pwd" type="submit" value="확인" onclick="$("#edit-click").trigger("click") />
-							<a href="/setting" id="edit-click" class="hrefBtn" type="hidden"></a>
+								<a href="/setting" class="btn hrefBtn" id="cancle-edit-pwd" >취소</a>
+								<input class="btn" id="ok-edit-pwd" type="submit" value="확인"/>
 							</div>
 							<a href="/setting" class="btn-close fas fa-times hrefBtn">닫기</a>
 							</form>
@@ -300,6 +298,8 @@ $(document).ready(function() {
 							<div class="mask" style="display:block"></div>
 					`);
 				});
+				// onclick="$('#edit-click').trigger('click')" 
+				// <input value="/setting" id="edit-click" class="hrefBtn" type="hidden"/>
 			} else if (url.split("/")[2] == "logout") {
 				$(function() {
 					url = "/setting/logout";
@@ -313,12 +313,10 @@ $(document).ready(function() {
 							<div class="context">
 								<p>로그아웃 하시겠습니까?</p>
 							</div>
-		
-							<div class="btn-area"> <!-- 여긴 창전환 시켜서 /member/logout로 보내면됨 -->
-								<button class="btn" id="logout-cancle">취소</button>
-								<button class="btn" id="logout-ok">확인</button>
+							<div class="btn-area">
+								<a href="/setting" class="btn hrefBtn" id="logout-cancle">취소</a>
+								<a href="/member/logout" class="btn hrefBtn" id="logout-ok">확인</a>
 							</div>
-		
 							<a class="btn-close fas fa-times hrefBtn" href="/setting">닫기</a>
 						</div>
 					</div>
@@ -331,22 +329,21 @@ $(document).ready(function() {
 					state = "";
 					history.pushState(state, title, url);
 					$("#setPopUp").append(`
+					<script src="/resource/js/setting/set.js"></script>
 					<div class="popup" style="display:block">
 					<div class="popup-wrap">
-		
 						 <form class="popup-container" id="withdrawA1">
 							<div class="context">
 							 <p>탈퇴 하시겠습니까?</p>
 							</div>
 							<div class="btn-area">
-							 <input type="button" class="btn" id="withdraw-cancle1" value="취소" onclick="$("#withdraw-cancle2-click").trigger("click") />
-							 <input type="button" class="btn" id="withdraw-ok1" value="확인"/>
-							 <a id="withdraw-cancle1-click" class="hrefBtn" type="hidden" href="/setting" ></a>
+							 <a href="/setting" class="btn hrefBtn" id="withdraw-cancle1">취소</a>
+							 <div class="btn" id="withdraw-ok1">확인</div>
 							</div>
 							<a class="btn-close fas fa-times hrefBtn" href="/setting">닫기</a>
 						 </form>
 		
-						 <form class="popup-container" id="withdrawA2">
+						 <form class="popup-container" id="withdrawA2" method="post">
 							<div class="context">
 							 <p>비밀번호를 한 번 더<br>입력해 주세요.</p>
 							 <div>
@@ -354,13 +351,11 @@ $(document).ready(function() {
 							 </div>
 							</div>
 							<div class="btn-area">
-							 <input type="button" class="btn" id="withdraw-cancle2" value="취소" onclick="$("#withdraw-cancle2-click").trigger("click") />
-							 <input type="submit" class="btn" id="withdraw-ok2" value="확인"/> <!-- 확인버튼 클릭시 창전환 시켜서 로그인창 보내줘야됨 -->
-							 <a id="withdraw-cancle2-click" class="hrefBtn" type="hidden" href="/setting"></a>
+							 <a href="/setting" class="btn hrefBtn" id="withdraw-cancle2">취소</a>
+							 <input type="submit" class="btn" id="withdraw-ok2" value="확인"/>
 							</div>
 							<a class="btn-close fas fa-times hrefBtn" href="/setting">닫기</a>
 						 </form>
-		
 					</div>
 				 </div>
 				 <div class="mask" style="display:block"></div>
@@ -517,8 +512,8 @@ $(document).ready(function() {
 							<ul >
 								<li>
 								<!-- 여기 a태그들은 페이지 안에서 처리하는거라 자바스크립트 따로있거나, 만들어야되는부분들 -->
-									<a href="#" id="chatting hrefBtn" class="btn">1:1채팅</a>
-									<a href="#" id="block hrefBtn" class="btn">차단</a>
+									<div id="chatting" class="btn">1:1채팅</div>
+									<div id="block" class="btn">차단</div>
 								</li>
 							</ul>
 						</nav>
@@ -836,7 +831,6 @@ $(document).ready(function() {
 					  <div id="anno" style="display:none">
 				  추가
 			  </div>
-  
 				  </form>
 			  </main>
 		  </section>

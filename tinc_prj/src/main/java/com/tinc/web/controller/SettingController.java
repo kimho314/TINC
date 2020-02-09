@@ -223,7 +223,7 @@ public class SettingController {
    
    @GetMapping("/logout")
    public String logout() {
-//      return "setting/logout";
+
       return "main";
    }
    
@@ -249,7 +249,7 @@ public class SettingController {
       if(checkPassword) {
          System.out.println("비번 같음-탈퇴처리");
          service.withdrawalMember(id);
-         return "redirect:main";
+         return "member/logout";
       } else {
          // 비밀번호가 다름
          System.out.println("비번 다름");
