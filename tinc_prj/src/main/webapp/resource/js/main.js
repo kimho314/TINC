@@ -5,8 +5,10 @@ var state = "";
 
 $(function () {
 	$(".hrefBtn").click(function (e) {
+		console.log("click");
+		
 		// e.preventDefault();
-		// console.log(e);
+		console.log(e);
 		if (e.target.name != null) {
 			urlChange(e.target.name);
 		} else {
@@ -28,11 +30,12 @@ $(function () {
 	});
 });
 
+
 function urlChange(path) {
-	console.log("asdf");
+	console.log("urlChange");
 	prevPage = url;
 	url = path;
-
+	console.log(url);
 	history.pushState(state, title, url);
 }
 
@@ -117,11 +120,9 @@ function pageLoad() {
 					  <button type="button" name="/memo/list" class="hrefBtn" title="메모장 이동" onclick="urlChange('/memo/list');buttomBtn();pageLoad();">MEMO</button>
 				  </nav>
 				  <main class="container">
-  
 						<div id="setting-head">
 						  <span id="setting-title">설정</span>
 						</div>
-						
 						<form 
 					action=""
 					id="settingFileForm"
@@ -143,10 +144,10 @@ function pageLoad() {
 						  </div>
   
 						  <div class="set-line">
-							<button type="button" name="/setting/change-pwd" class="hrefBtn" id="setting-edit-pwd">비밀번호 변경</button>
+							<input type="button" name="/setting/change-pwd" id="setting-edit-pwd" value="비밀번호 변경" onclick="urlChange('/setting/change-pwd');buttomBtn();pageLoad();"/>
 						  </div>
 						  <div class="set-line">
-							<button type="button" name="/setting/withdraw" class="hrefBtn" id="setting-secession">탈퇴하기</a>
+							<input type="button" name="/setting/withdraw" id="setting-secession" value="탈퇴하기" onclick="urlChange('/setting/withdraw');buttomBtn();pageLoad();"/>
 						  </div>
   
 						  <div class="set-line">공개설정</div>
@@ -179,7 +180,7 @@ function pageLoad() {
 							  </div>
 							</div>
   
-						  <button type="button" name="/setting/logout" class="hrefBtn" id="set-logout">로그아웃</a>
+						  <input type="button" name="/setting/logout" id="set-logout" value="로그아웃" onclick="urlChange('/setting/logout');buttomBtn();pageLoad();"/>
 						  <div></div>
 						</form>
 				  </main>
@@ -283,10 +284,10 @@ function pageLoad() {
 						  </div>
 						  
 						  <div class="btn-area">
-							  <button type="button" name="/setting" class="btn hrefBtn" id="cancle-edit-pwd" >취소</a>
-							  <input class="btn" id="ok-edit-pwd" type="submit" value="확인"/>
+							  <input type="button" name="/setting" class="btn" id="cancle-edit-pwd" value="취소" onclick="urlChange('/setting');buttomBtn();pageLoad();"/>
+							  <button class="btn hrefBtn" id="ok-edit-pwd" type="submit" name="/setting">확인</button>
 						  </div>
-						  <button type="button" name="/setting" class="btn-close fas fa-times hrefBtn">닫기</button>
+						  <button type="button" name="/setting" class="btn-close fas fa-times" onclick="urlChange('/setting');buttomBtn();pageLoad();">닫기</button>
 						  </form>
 						  </div>
 						  </div>
@@ -304,15 +305,14 @@ function pageLoad() {
 			  <div class="popup" style="display:block">
 				  <div class="popup-wrap">
 					  <div class="popup-container">
-	  
 						  <div class="context">
 							  <p>로그아웃 하시겠습니까?</p>
 						  </div>
 						  <div class="btn-area">
-							  <button type="button" name="/setting" class="btn hrefBtn" id="logout-cancle">취소</button>
-							  <button type="button" name="/member/logout" class="btn hrefBtn" id="logout-ok">확인</button>
+							  <input type="button" name="/setting" class="btn" id="logout-cancle" value="취소" onclick="urlChange('/setting');buttomBtn();pageLoad();"/>
+							  <input type="button" name="/member/logout" class="btn" id="logout-ok" value="확인" onclick="urlChange('/member/logout');pageLoad();"/>
 						  </div>
-						  <button type="button" class="btn-close fas fa-times hrefBtn" name="/setting">닫기</button>
+						  <button type="button" name="/setting" class="btn-close fas fa-times" onclick="urlChange('/setting');buttomBtn();pageLoad();">닫기</button>
 					  </div>
 				  </div>
 			  </div>
@@ -332,10 +332,10 @@ function pageLoad() {
 							<p>탈퇴 하시겠습니까?</p>
 						  </div>
 						  <div class="btn-area">
-							<button type="button" name="/setting" class="btn hrefBtn" id="withdraw-cancle1">취소</button>
+							<input type="button" name="/setting" class="btn" id="withdraw-cancle1" value="취소" onclick="urlChange('/setting');buttomBtn();pageLoad();"/>
 							<div class="btn" id="withdraw-ok1">확인</div>
 						  </div>
-						  <button type="button" class="btn-close fas fa-times hrefBtn" name="/setting">닫기</button>
+						 <button type="button" name="/setting" class="btn-close fas fa-times" onclick="urlChange('/setting');buttomBtn();pageLoad();">닫기</button>
 						</form>
 	  
 						<form class="popup-container" id="withdrawA2" method="post">
@@ -346,10 +346,10 @@ function pageLoad() {
 							</div>
 						  </div>
 						  <div class="btn-area">
-							<button type="button" name="/setting" class="btn hrefBtn" id="withdraw-cancle2">취소</button>
+							<input type="button" name="/setting" id="withdraw-cancle2" class="btn" value="취소" onclick="urlChange('/setting');buttomBtn();pageLoad();"/>
 							<input type="submit" class="btn" id="withdraw-ok2" value="확인"/>
 						  </div>
-						  <button type="button" class="btn-close fas fa-times hrefBtn" name="/setting">닫기</button>
+						  <button type="button" name="/setting" class="btn-close fas fa-times" onclick="urlChange('/setting');buttomBtn();pageLoad();">닫기</button>
 						</form>
 				  </div>
 				</div>
