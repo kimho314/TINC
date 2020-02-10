@@ -1,4 +1,5 @@
 @import url(../common.css);
+.settingMain{height:calc(100% - 3rem)}
 
 #setting-head{
     display: flex;

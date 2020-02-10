@@ -198,7 +198,7 @@ public class MemberController {
    @GetMapping("addFriend")
       public String addFriend() {
          
-         return "member/addFriend";
+         return "main";
       }
       
    @ResponseBody

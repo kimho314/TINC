@@ -16,7 +16,7 @@
       <nav class="gnb"> 
          <a href="#" title="메모장 이동">MEMO</a>
       </nav><!-- gnb end -->
-      <main class="container">
+      <main class="container settingMain">
 
          <div id="setting-head">
             <!-- <span class="fas fa-chevron-left" id="return"></span> -->
