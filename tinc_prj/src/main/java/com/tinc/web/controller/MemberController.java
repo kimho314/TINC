@@ -140,7 +140,7 @@ public class MemberController {
       model.addAttribute("userIhaveblocked", service.getListOfUserIhaveblocked(memberId));
       model.addAttribute("userWhoHaveAddedMe", service.getListOfUserWhoHaveAddedMe(memberId));
       
-      return "member/friendSetting";
+      return "main";
    }
    
    @PostMapping("friendSetting")

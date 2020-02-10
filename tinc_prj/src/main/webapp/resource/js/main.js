@@ -8,18 +8,24 @@ $(document).ready(function() {
 
   $(function() {
     $(".hrefBtn").click(function(e) {
-      console.log(e.target.value);
-      if (e.target.href != null) {
-        //   e.preventdefault();
-        urlChange(e.target.href);
-        console.log("href" + e.target.href);
-      } else if (e.target.value != null) {
-        urlChange(e.target.value);
-        console.log("value" + e.target.value);
+      // e.preventDefault();
+      // console.log(e);
+      if (e.target.name != null) {
+        urlChange(e.target.name);
       } else {
         urlChange(url);
-        console.log(url);
       }
+      // console.log(e.target.value);
+      // if (e.target.href != null) {
+      //   urlChange(e.target.href);
+      //   console.log("href" + e.target.href);
+      // } else if (e.target.value != null) {
+      //   urlChange(e.target.value);
+      //   console.log("value" + e.target.value);
+      // } else {
+      //   urlChange(url);
+      //   console.log(url);
+      // }
       buttomBtn();
       pageLoad();
     });
@@ -41,7 +47,6 @@ $(document).ready(function() {
   function urlChange(path) {
     prevPage = url;
     url = path;
-    console.log(prevPage);
 
     history.pushState(state, title, url);
   }
@@ -53,10 +58,10 @@ $(document).ready(function() {
 			<button type="button" class="btn on bottombutton1" name="/member/addFriend">
 				<i class="fas fa-user-plus" onclick="$('.bottombutton1').trigger('click')">친구추가</i>
 			</button>
-			<button class="btn bottombutton2" name="/chat/list">
+			<button type="button" class="btn bottombutton2" name="/chat/list">
 				<i class="fas fa-comments" onclick="$('.bottombutton2').trigger('click')">채팅목록</i>
 			</button>
-			<button class="btn bottombutton3" name="/setting">
+			<button type="button" class="btn bottombutton3" name="/setting">
 				<i class="fas fa-cog" onclick="$('.bottombutton3').trigger('click')">설정</i>
 			</button>
 		</div>
@@ -67,10 +72,10 @@ $(document).ready(function() {
 			<button type="button" class="btn on bottombutton1" name="/member/friendList">
 			<i class="fas fa-user" onclick="$('.bottombutton1').trigger('click')">친구목록</i>
 			</button>
-			<button class="btn bottombutton2" name="/chat/list">
+			<button type="button" class="btn bottombutton2" name="/chat/list">
 				<i class="fas fa-comments" onclick="$('.bottombutton2').trigger('click')">채팅목록</i>
 			</button>
-			<button class="btn bottombutton3" name="/setting">
+			<button type="button" class="btn bottombutton3" name="/setting">
 				<i class="fas fa-cog" onclick="$('.bottombutton3').trigger('click')">설정</i>
 			</button>
 		</div>
@@ -81,10 +86,10 @@ $(document).ready(function() {
 		 <button type="button" class="btn bottombutton1" name="/member/friendList">
 			<i class="fas fa-user" onclick="$('.bottombutton1').trigger('click')">친구목록</i>
 		 </button>
-		 <button class="btn bottombutton2" name="/chat/list">
+		 <button type="button" class="btn bottombutton2" name="/chat/list">
 			 <i class="fas fa-comments" onclick="$('.bottombutton2').trigger('click')">채팅목록</i>
 		 </button>
-		 <button class="btn on bottombutton3" name="/setting">
+		 <button type="button" class="btn on bottombutton3" name="/setting">
 			<i class="fas fa-cog" onclick="$('.bottombutton3').trigger('click')">설정</i>
 		 </button>
 	  </div>
@@ -95,14 +100,14 @@ $(document).ready(function() {
 		 <button type="button" class="btn bottombutton1" name="/member/friendList">
 			<i class="fas fa-user" name="/member/friendList" onclick="$('.bottombutton1').trigger('click')">친구목록</i>
 		 </button>
-		 <button class="btn on bottombutton2" name="/chat/add">
+		 <button type="button" class="btn on bottombutton2" name="/chat/add">
 			<span class="btn-chatadd" name="/chat/add" onclick="$('.bottombutton2').trigger('click')">
 			  <span class="hidden" name="/chat/add">채팅추가</span>
 			  <i class="fas fa-comments" name="/chat/add" onclick="$('.bottombutton2').trigger('click')"></i>
 			  <i class="fas fa-plus" name="/chat/add" onclick="$('.bottombutton2').trigger('click')"></i>
 			</span>
 		 </button>
-		 <button class="btn bottombutton3" name="/setting">
+		 <button type="button" class="btn bottombutton3" name="/setting">
 			<i class="fas fa-cog" name="/setting" onclick="$('.bottombutton3').trigger('click')">설정</i>
 		 </button>
 	  </div>
@@ -124,7 +129,7 @@ $(document).ready(function() {
 					<script src="/resource/js/setting/set.js"></script>
 					<section class="wrapper">
 					<nav class="gnb">
-						<a href="/memo/list" class="hrefBtn" title="메모장 이동">MEMO</a>
+						<button type="button" name="/memo/list" class="hrefBtn" title="메모장 이동">MEMO</button>
 					</nav>
 					<main class="container">
 	
@@ -153,10 +158,10 @@ $(document).ready(function() {
 							</div>
 	
 							<div class="set-line">
-							 <a href="/setting/change-pwd" class="hrefBtn" id="setting-edit-pwd">비밀번호 변경</a>
+							 <button type="button" name="/setting/change-pwd" class="hrefBtn" id="setting-edit-pwd">비밀번호 변경</button>
 							</div>
 							<div class="set-line">
-							 <a href="/setting/withdraw" class="hrefBtn" id="setting-secession">탈퇴하기</a>
+							 <button type="button" name="/setting/withdraw" class="hrefBtn" id="setting-secession">탈퇴하기</a>
 							</div>
 	
 							<div class="set-line">공개설정</div>
@@ -189,7 +194,7 @@ $(document).ready(function() {
 								</div>
 							 </div>
 	
-							<a href="/setting/logout" class="hrefBtn" id="set-logout">로그아웃</a>
+							<button type="button" name="/setting/logout" class="hrefBtn" id="set-logout">로그아웃</a>
 							<div></div>
 						 </form>
 					</main>
@@ -293,10 +298,10 @@ $(document).ready(function() {
 							</div>
 							
 							<div class="btn-area">
-								<a href="/setting" class="btn hrefBtn" id="cancle-edit-pwd" >취소</a>
+								<button type="button" name="/setting" class="btn hrefBtn" id="cancle-edit-pwd" >취소</a>
 								<input class="btn" id="ok-edit-pwd" type="submit" value="확인"/>
 							</div>
-							<a href="/setting" class="btn-close fas fa-times hrefBtn">닫기</a>
+							<button type="button" name="/setting" class="btn-close fas fa-times hrefBtn">닫기</button>
 							</form>
 							</div>
 							</div>
@@ -319,10 +324,10 @@ $(document).ready(function() {
 								<p>로그아웃 하시겠습니까?</p>
 							</div>
 							<div class="btn-area">
-								<a href="/setting" class="btn hrefBtn" id="logout-cancle">취소</a>
-								<a href="/member/logout" class="btn hrefBtn" id="logout-ok">확인</a>
+								<button type="button" name="/setting" class="btn hrefBtn" id="logout-cancle">취소</button>
+								<button type="button" name="/member/logout" class="btn hrefBtn" id="logout-ok">확인</button>
 							</div>
-							<a class="btn-close fas fa-times hrefBtn" href="/setting">닫기</a>
+							<button type="button" class="btn-close fas fa-times hrefBtn" name="/setting">닫기</button>
 						</div>
 					</div>
 				</div>
@@ -342,10 +347,10 @@ $(document).ready(function() {
 							 <p>탈퇴 하시겠습니까?</p>
 							</div>
 							<div class="btn-area">
-							 <a href="/setting" class="btn hrefBtn" id="withdraw-cancle1">취소</a>
+							 <button type="button" name="/setting" class="btn hrefBtn" id="withdraw-cancle1">취소</button>
 							 <div class="btn" id="withdraw-ok1">확인</div>
 							</div>
-							<a class="btn-close fas fa-times hrefBtn" href="/setting">닫기</a>
+							<button type="button" class="btn-close fas fa-times hrefBtn" name="/setting">닫기</button>
 						 </form>
 		
 						 <form class="popup-container" id="withdrawA2" method="post">
@@ -356,10 +361,10 @@ $(document).ready(function() {
 							 </div>
 							</div>
 							<div class="btn-area">
-							 <a href="/setting" class="btn hrefBtn" id="withdraw-cancle2">취소</a>
+							 <button type="button" name="/setting" class="btn hrefBtn" id="withdraw-cancle2">취소</button>
 							 <input type="submit" class="btn" id="withdraw-ok2" value="확인"/>
 							</div>
-							<a class="btn-close fas fa-times hrefBtn" href="/setting">닫기</a>
+							<button type="button" class="btn-close fas fa-times hrefBtn" name="/setting">닫기</button>
 						 </form>
 					</div>
 				 </div>
@@ -384,7 +389,7 @@ $(document).ready(function() {
 					<link rel="stylesheet" type="text/css" href="/resource/css/chatting/chat.css?vvvv" >
 					<section class="wrapper">
 						<nav class="gnb">
-							<a href="/memo/list" class="hrefBtn" title="메모장 이동">MEMO</a>
+							<button type="button" name="/memo/list" class="hrefBtn" title="메모장 이동">MEMO</button>
 						</nav>
 						<main class="container hasbtn">
 							<div class="topBox">
@@ -395,7 +400,7 @@ $(document).ready(function() {
 							<ul class="chatList" id="chatIfList">
 	
 							</ul>
-							<button class="btn-top"><i class="fas fa-arrow-up">TOP</i></button>
+							<button type="button" class="btn-top"><i class="fas fa-arrow-up">TOP</i></button>
 						</main>
 					</section>
 					<aside id="menu"> </aside>
@@ -475,14 +480,14 @@ $(document).ready(function() {
 				<script src="/resource/js/member/friendList.js"></script>
 				<section class="wrapper">
 				<nav class="gnb">
-					<a href="/memo/list" class="hrefBtn" title="메모장 이동">MEMO</a>
+					<button type="button" name="/memo/list" class="hrefBtn" title="메모장 이동">MEMO</button>
 				</nav>
 				<main class="container friend-list">
 					<form>
 					<div class="menu">
 						<span class="left"></span>
 						<span class="center">친구</span>
-						<a class="right hrefBtn" href="/member/friendSetting" ><i class="fas fa-bars"></i></a>
+						<button type="button" id="friendSettingBtn" class="right hrefBtn" name="/member/friendSetting" ><i class="fas fa-bars" onclick="$('#friendSettingBtn').trigger('click')"></i></a>
 					</div>
 					<div class="friend">
 						<div class="box inline" id="ajMyProfileImg">
@@ -522,7 +527,7 @@ $(document).ready(function() {
 								</li>
 							</ul>
 						</nav>
-						<a href="#" class="btn-close fas fa-times hrefBtn" onclick="popupClose()">닫기</a>
+						<button type="button" name="#" class="btn-close fas fa-times hrefBtn" onclick="popupClose()">닫기</button>
 					</div>
 				</div>
 			</div>
@@ -566,7 +571,7 @@ $(document).ready(function() {
 							 <img src="/resource/images/${data[1][i].profileImg}" alt="image1" class="profile" id="img_${i}"
 							 data-id="${data[1][i].id}" data-nickname="${data[1][i].nickName}" data-statusmsg="${data[1][i].statusMsg}" data-img="${data[1][i].profileImg}">
 						  </div>
-						  <div class="inline" id="ajFL${data[1][i].id}"></div>
+						  <div class="inline" id="ajFL${data[1][i].id}" onclick="$('#img_${i}').trigger('click')"></div>
 						</div>
 				  </div>
 					 `);
@@ -595,6 +600,7 @@ $(document).ready(function() {
         async: false,
         success: function(data) {
           console.log(data);
+          $("#bottomButton *").remove();
           $("#bottomButton").css({ dlsplay: "none" });
           $("#content *").remove();
           $("#content").css({ height: "100%" });
@@ -709,12 +715,12 @@ $(document).ready(function() {
 				 <script src="/resource/js/member/friendSetting.js"></script>
 				 <section class="wrapper">
 				 <nav class="gnb">
-					 <a href="/memo/list" class="hrefBtn" title="메모장 이동">MEMO</a>
+					 <button type="button" name="/memo/list" class="hrefBtn" title="메모장 이동">MEMO</button>
 				 </nav>
 				 <main class="container friend-setting">
 					 <form action="friendSetting" method="post">
 					 <div class="menu">
-						 <a class="left hrefBtn" href="/member/friendList"><i class="fas fa-chevron-left"></i></a>
+						 <button type="button" id="friendSettingBack" class="left hrefBtn" name="/member/friendList"><i class="fas fa-chevron-left" onclick="$('#friendSettingBack').trigger('click')"></i></button>
 						 <span class="center">친구 설정</span>
 						 <span class="right"></span>
 					 </div>
@@ -814,7 +820,7 @@ $(document).ready(function() {
 			  <script src="/resource/js/member/addFriend.js"></script>
 				 <section class="wrapper">
 				 <nav class="gnb">
-					 <a href="/memo/list" class="hrefBtn" title="메모장 이동">MEMO</a>
+					 <button type="button" name="/memo/list" class="hrefBtn" title="메모장 이동">MEMO</button>
 				 </nav>
 				 <main class="container friend-add">
 					 <form action="addFriend" method="post" id="frm">
@@ -822,13 +828,13 @@ $(document).ready(function() {
 						 <div class="menu">
 							 <span class="left"></span>
 							 <span class="center">친구 추가</span>
-							 <a class="right hrefBtn" href="/member/friendList"><i class="fas fa-times"></i></a>
+							 <button type="button" class="right hrefBtn" name="/member/friendList"><i class="fas fa-times"></i></button>
 						 </div>
 	 
 						 <input type="hidden" name="friendsId" id="friendsId" value=""/>
 						 <div class="inline" id="search">
 							 <input type="text" value="" id="searchword" name="searchword" placeholder="아이디로 검색하세요"/>
-							 <button type="button" class="fas fa-search"></button>
+							 <button type="button" type="button" class="fas fa-search"></button>
 						 </div>
 						<div class="add-list" id="add-list">
 						 </div>
@@ -840,6 +846,57 @@ $(document).ready(function() {
 			 </section>
 				 `);
       });
+    } else if (url == "/chat/add") {
+      $("#content *").remove();
+      $("#content").append(`
+		<link rel="stylesheet" href="/resource/css/chatting/chat.css" />
+      <section class="wrapper">
+         <nav class="gnb">
+				<button type="button" name="/memo/list" class="hrefBtn" title="메모장 이동">MEMO</button>
+         </nav>
+         <main class="container">
+            <div class="topBox">
+               <div class="left">
+                  <button type="button" class="btn-back fas fa-chevron-left hrefBtn" name="/chat/list">뒤로가기</button>
+               </div>
+               <h1 class="title">채팅 추가</h1>
+               <div class="right"></div>
+            </div>
+            <form action="add" method="post" name="frm">
+             <div class="search add">
+                <input type="text" placeholder="검색" name="userIdInput" id="searchKey"/>
+                <span class="searchSpan">
+                   <label><span id="cnt">0</span> 명</label>
+                   <button type="button" type="button" onclick="listCheck()">완료</button>
+                </span>
+                <input type="hidden" name="memberIds" />
+             </div>
+            <ul class="chatList add"></ul>
+            <div class="popup alert" id="add">
+		         <div class="popup-wrap alert">
+		            <button  type="button" class="btn-close fas fa-times"></button>
+		            <div class="context">
+		               <input type="text" placeholder="채팅방 이름을 설정해 주세요" name="title" id="title"/>
+		            </div>
+		            <div class="btn-area">
+		            	<button type="button" class="btn" onclick="frmCheck()">확인</button>
+		            </div>
+		         </div>
+		      </div>
+            </form>
+            <button type="button" class="btn-top"><i class="fas fa-arrow-up">TOP</i></button>
+         </main>
+      </section>
+      <div class="mask"></div>
+      <script>
+       let pageMode="addChat";
+      </script>
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="/resource/js/chatting/uiUtil.js?version=1"></script>
+  <script src="/resource/js/chatting/chatInvite.js?version=1"></script>
+  		`);
     }
   }
 

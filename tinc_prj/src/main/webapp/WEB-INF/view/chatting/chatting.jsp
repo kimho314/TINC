@@ -14,7 +14,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   <body>
     <link
       rel="stylesheet"
-      href="../../../resource/css/chatting/chat.css?version=d"
+      href="../../../resource/css/chatting/chat.css?version=f"
     />
     <section class="wrapper">
       <nav class="gnb">
