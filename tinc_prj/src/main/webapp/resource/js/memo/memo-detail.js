@@ -31,11 +31,13 @@ window.addEventListener("load", function () {
         updateDetailData();
     });
 
+    this.console.log(getCookie("prevUrl"));
     // detail창 닫기 버튼
     $("#memo-detail-close-icon").off("click").click((e) => {
         this.clearTimeout(detailCloseTid);
         this.clearInterval(tid);
         delCookie("cardId");
+
         let url = "/memo/list";
         let oldUrl = window.location.pathname + window.location.search;
         $.get(url, function (data) {

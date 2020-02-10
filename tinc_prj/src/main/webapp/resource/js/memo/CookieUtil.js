@@ -1,11 +1,11 @@
 function createCookie(cname, cvalue) {
-    document.cookie = cname + "=" + cvalue + "; path=/memo";
+    document.cookie = cname + "=" + cvalue + "; path=/";
 }
 
 function delCookie(cname) {
     let expireDate = new Date(Date.now() - 1);
     expireDate = expireDate.toUTCString();
-    document.cookie = cname + "=; expires=" + expireDate + "; path=/memo";
+    document.cookie = cname + "=; expires=" + expireDate + "; path=/";
 }
 
 function getCookie(cname) {

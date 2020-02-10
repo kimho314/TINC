@@ -579,13 +579,14 @@ function pageLoad() {
 			}
 		});
 	} else if (url == "/memo/list") {
-		createCookie("prevUrl", prevPage);
+
 		$.ajax({
 			url: "/jsonTinc/memo/list",
 			dataType: "json",
 			async: false,
 			success: function (data) {
-				console.log(data);
+				//createCookie("prevUrl", prevPage);
+				//console.log(data);
 				$("#bottomButton *").remove();
 				$("#bottomButton").css({ dlsplay: "none" });
 				$("#content *").remove();
@@ -731,7 +732,7 @@ function pageLoad() {
 				</main>
 			</section>
 				`);
-				
+
 				for (let i = 0; i < data[0].length; i++) {
 					$("#blockedFriend").append(`
 				  <div class="flex friend">
@@ -889,6 +890,8 @@ function pageLoad() {
 $(document).ready(function () {
 	console.log($(location).attr("pathname"));
 	console.log(url.split("/")[1]);
+
+	createCookie("prevUrl", $(location).attr("pathname"));
 
 	$(function () {
 		$("#bottomButton").click(function (e) {
