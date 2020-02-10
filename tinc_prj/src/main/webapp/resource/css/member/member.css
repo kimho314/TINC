@@ -22,9 +22,9 @@ input[type="tel"] {width: calc(100% - 1.641rem); padding:0 0.9375rem; box-sizing
 .join {text-align: center; height: calc(100% - 9rem); box-sizing:border-box; margin: 1.125rem 0;}
 #frm {height:100%;}
 .join .center {height: calc(100% - 9rem);}
-.join input[type="text"] {margin-top:0.9375rem;}
-.join input[type="password"] {margin-top:0.9375rem;}
-.join input[type="tel"] {margin-top:0.9375rem;}
+.join input[type="text"] {margin-top:0.563rem;}
+.join input[type="password"] {margin-top:0.563rem;}
+.join input[type="tel"] {margin-top:0.563rem;}
 .join input::placeholder {color: #b2b2b2;}
 .join span {color: #7367f0; font-size: 0.8125rem;}
 /* .join .agree-btn {margin-top: 1.563rem;} */
