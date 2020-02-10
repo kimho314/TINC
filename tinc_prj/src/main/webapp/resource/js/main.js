@@ -189,75 +189,75 @@ $(document).ready(function() {
 						 </form>
 					</main>
 					<div id="setPopUp"></div>
-				 </section>`,
+				 </section>`
 					);
 					if (data[0].profileImg == null) {
 						$("#setMyImg").append(
-							`<img id='myProfileImage' src="/resource/images/profile.jpg}">`,
+							`<img id='myProfileImage' src="/resource/images/profile.jpg}">`
 						);
 					} else if (data[0].profileImg != null) {
 						$("#setMyImg").append(
-							`<img id='myProfileImage' src="/resource/images/${data[0].profileImg}">`,
+							`<img id='myProfileImage' src="/resource/images/${data[0].profileImg}">`
 						);
 					}
 
 					if (data[0].idOpen == 0) {
 						$("#idOpenCheckBox").append(
 							`<input type="checkbox" id="idCheckbox" class="set-checkbox"/>
-						<label for="idCheckbox" class="set-check"></label>`,
+						<label for="idCheckbox" class="set-check"></label>`
 						);
 					} else if (data[0].idOpen == 1) {
 						$("#idOpenCheckBox").append(
 							`<input type="checkbox" id="idCheckbox" class="set-checkbox" checked/>
-						<label for="idCheckbox" class="set-check"></label>`,
+						<label for="idCheckbox" class="set-check"></label>`
 						);
 					}
 
 					if (data[0].phoneNumOpen == 0) {
 						$("#phoneNumOpenCheckBox").append(
 							`<input type="checkbox" id="phoneCheckbox" class="set-checkbox"/>
-						<label for="phoneCheckbox" class="set-check"></label>`,
+						<label for="phoneCheckbox" class="set-check"></label>`
 						);
 					} else if (data[0].phoneNumOpen == 1) {
 						$("#phoneNumOpenCheckBox").append(
 							`<input type="checkbox" id="phoneCheckbox" class="set-checkbox" checked/>
-						<label for="phoneCheckbox" class="set-check"></label>`,
+						<label for="phoneCheckbox" class="set-check"></label>`
 						);
 					}
 
 					if (data[0].emailOpen == 0) {
 						$("#emailOpenCheckBox").append(
 							`<input type="checkbox" id="emailCheckbox" class="set-checkbox"/>
-						<label for="emailCheckbox" class="set-check"></label>`,
+						<label for="emailCheckbox" class="set-check"></label>`
 						);
 					} else if (data[0].emailOpen == 1) {
 						$("#emailOpenCheckBox").append(
 							`<input type="checkbox" id="emailCheckbox" class="set-checkbox" checked/>
-						<label for="emailCheckbox" class="set-check"></label>`,
+						<label for="emailCheckbox" class="set-check"></label>`
 						);
 					}
 
 					if (data[0].chattingAlarm == 0) {
 						$("#chatAlarmCheckBox").append(
 							`<input type="checkbox" id="chattingCheckbox" class="set-checkbox"/>
-						<label for="chattingCheckbox" class="set-check"></label>`,
+						<label for="chattingCheckbox" class="set-check"></label>`
 						);
 					} else if (data[0].chattingAlarm == 1) {
 						$("#chatAlarmCheckBox").append(
 							`<input type="checkbox" id="chattingCheckbox" class="set-checkbox" checked/>
-						<label for="chattingCheckbox" class="set-check"></label>`,
+						<label for="chattingCheckbox" class="set-check"></label>`
 						);
 					}
 
 					if (data[0].memoAlarm == 0) {
 						$("#memoAlarmCheckBox").append(
 							`<input type="checkbox" id="memoCheckbox" class="set-checkbox"/>
-						<label for="memoCheckbox" class="set-check"></label>`,
+						<label for="memoCheckbox" class="set-check"></label>`
 						);
 					} else if (data[0].memoAlarm == 1) {
 						$("#memoAlarmCheckBox").append(
 							`<input type="checkbox" id="memoCheckbox" class="set-checkbox" checked/>
-						<label for="memoCheckbox" class="set-check"></label>`,
+						<label for="memoCheckbox" class="set-check"></label>`
 						);
 					}
 				},
