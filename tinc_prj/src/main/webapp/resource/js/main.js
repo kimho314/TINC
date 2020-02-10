@@ -579,7 +579,7 @@ function pageLoad() {
 			}
 		});
 	} else if (url == "/memo/list") {
-
+		createCookie("prevUrl", $(location).attr("pathname"));
 		$.ajax({
 			url: "/jsonTinc/memo/list",
 			dataType: "json",
@@ -891,7 +891,7 @@ $(document).ready(function () {
 	console.log($(location).attr("pathname"));
 	console.log(url.split("/")[1]);
 
-	createCookie("prevUrl", $(location).attr("pathname"));
+
 
 	$(function () {
 		$("#bottomButton").click(function (e) {
