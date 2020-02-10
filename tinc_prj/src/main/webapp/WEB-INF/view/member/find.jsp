@@ -14,7 +14,7 @@
 <body>
    <section class="wrapper"> 
       <nav class="gnb"> 
-         <a href="#" title="메모장 이동">MEMO</a>
+        
       </nav><!-- gnb end -->
       <main class="container">
          <form action="find" method="post">

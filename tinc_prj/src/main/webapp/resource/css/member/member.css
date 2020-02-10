@@ -41,7 +41,7 @@ input[type="tel"] {width: calc(100% - 1.641rem); padding:0 0.9375rem; box-sizing
 .find input[type="tel"] {margin-top: 1rem;}
 .find-btn {width: 8.25rem; height: 1.813rem; font-size:0.9375rem; color:#fff; background-color: #7367f0; border-radius: 0.3125rem;}
 .find .find-btn {margin: 0.625rem 0.8125rem 0.875rem 13.13rem;}
-.find>div:first-child {margin-top: 2.063rem;}
+.find>div:first-child {margin-top: 0.625rem;}
 .find div:nth-child(2) .find-btn {margin: 0.625rem 0.8125rem 2.875rem 13.13rem;}
 .find span {margin: 0 0 1rem 2.375rem;}
 
