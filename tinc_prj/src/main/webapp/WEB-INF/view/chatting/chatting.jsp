@@ -18,7 +18,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     />
     <section class="wrapper">
       <nav class="gnb">
-        <a href="#" title="메모장 이동" class="memo">MEMO</a>
+        <!--  <a href="#" title="메모장 이동" class="memo">MEMO</a> -->
       </nav>
       <!-- gnb end -->
       <main class="container">

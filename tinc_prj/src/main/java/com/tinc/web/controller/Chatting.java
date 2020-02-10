@@ -106,6 +106,11 @@ public class Chatting {
 		//String userId = "user2";
 		String[] members = memberIds.split(",");
 		//System.out.println(title);
+		if(members.length == 1) {
+			int dupliRoomId = chattingService.isDuplicatedRoom(userId,members[0]);
+			if(dupliRoomId != 0)
+				return "redirect:"+String.valueOf(dupliRoomId);
+		}
 		int result = chattingService.createChattingRoom(new ChattingRoom(userId,title));// 방장 먼저 개설		
 		if(result == 1) {
 			int chatId = chattingService.getChattingRoomId(userId); // 개설한 채팅 아이디가져오기

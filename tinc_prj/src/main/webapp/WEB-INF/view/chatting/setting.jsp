@@ -24,11 +24,11 @@
 	        </li>
         </c:if>
         <div class="line"></div>
-        <li class="groupMemo cursor">
+        <!-- <li class="groupMemo cursor">
            <i class="far fa-file-alt"></i>
            <span>그룹메모 바로가기</span>
         </li>
-        <div class="line"></div>
+        <div class="line"></div> -->
         <li class="chattingMember">
            <i class="fas fa-users"></i>
            <span>대화 상대</span>

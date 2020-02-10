@@ -74,6 +74,9 @@ input:focus {
 .wrapper .gnb {
    width: 100%;
    z-index: 5;
+   background:#7367f1;
+   box-sizing:border-box;
+   min-height:2rem
 }
 
 .wrapper .gnb a {
