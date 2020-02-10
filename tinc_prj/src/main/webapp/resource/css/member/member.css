@@ -59,8 +59,8 @@ input[type="tel"] {width: calc(100% - 1.641rem); padding:0 0.9375rem; box-sizing
 .friend-setting .find-btn {width: 3.125rem; height: 1.813rem; }
 .friend-setting .find-btn:nth-child(2) {width: 3.125rem; height: 1.813rem; background-color: #b2b2b2;}
 .friend-setting .box{margin-top: 0.125rem;}
-.friend-setting div:nth-child(2) {margin-left: 1.25rem;}
-.friend-setting div:nth-child(3) {margin-left: 0.125rem; margin-top: 0.4375rem; text-align: right;}
+.friend-setting .friend div:nth-child(2) {margin-left: 1.25rem;}
+.friend-setting .friend div:nth-child(3) {margin-left: 0.125rem; margin-top: 0.4375rem; text-align: right;}
 .friend-setting p:first-child {color:#000; font-size: 0.9375rem; margin-bottom: 0;}
 .friend-list .box {margin-top: 0.1875rem;}
 .list-count {margin: 0.1875rem 1.875rem; font-size: 0.8125rem; color:#515151;}
