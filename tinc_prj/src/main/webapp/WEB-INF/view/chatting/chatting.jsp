@@ -302,17 +302,19 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           //console.log(e.data);
           var obj = JSON.parse(e.data);
           chatParser.parseData(obj);
-          $(".chattingBox .chatting").animate(
-            { scrollTop: $(".chattingBox .chatting")[0].scrollHeight },
-            400
-          );
+          $(".container").animate({scrollTop:$(".container").height()},400);
           exeChat.saveChat(e.data);
         };
         $("#send-meg").click(function() {
           socket.send(exeChat.textMeg());
           $("#sendChat").val("");
         });
-
+        $("#sendChat").keypress(function(e) {
+        	 if (e.which == 13){
+        		 socket.send(exeChat.textMeg());
+                 $("#sendChat").val("");
+      			}
+          });
         $(".chatInput .btn-add").click(function() {
           $(".sendMenu").toggle();
         });

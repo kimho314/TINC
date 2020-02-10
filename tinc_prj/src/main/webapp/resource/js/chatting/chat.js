@@ -135,7 +135,7 @@ exeChat= {
 							$(".chatting").append('<li class="info"><div>'+nextObj.date+'</div></li>');
 					} else chatParser.parseData(obj);
 				}
-				$(".chattingBox .chatting").animate({scrollTop:$(".chattingBox .chatting")[0].scrollHeight},400);
+				$(".container").animate({scrollTop:$(".container").height()},400);
 			}  
 		 }).fail(function() {
 			 alert( "getJson error" );
