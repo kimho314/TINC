@@ -281,7 +281,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <script>
       let socket = null;
       $(function() {
-        socket = new WebSocket("ws://localhost:8080/chat"); //192.168.0.47
+        socket = new WebSocket("ws://125.129.74.131:8080/chat"); //125.129.74.131
         socket.onopen = function() {
           console.log("connection success");
           exeChat.setConfig(

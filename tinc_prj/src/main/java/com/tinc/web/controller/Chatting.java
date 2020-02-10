@@ -317,10 +317,10 @@ public class Chatting {
 		String userId = principal.getName();        
 		//String userId = "user2";
 		String filePath = "/WEB-INF/storage/chat";
-		String fileName = userId+id+".json";
+		
 		ServletContext context = request.getServletContext();
 		String realPath = context.getRealPath(filePath);
-		String fileRealLink = realPath+File.separator+fileName;
+		
 		//System.out.println(data);
 		
 		JSONParser parser = new JSONParser();		
@@ -329,6 +329,9 @@ public class Chatting {
 		//System.out.println(jobj);
 		String lastMeg = "";
 		switch (jobj.get("type").toString()) {
+		case "info":
+			lastMeg = null;
+			break;
 		case "img":
 		case "file":
 			lastMeg = "공유된 파일";
@@ -337,27 +340,33 @@ public class Chatting {
 			lastMeg = jobj.get("content").toString();
 			break;
 		}
-		chattingService.saveLast(id,userId,lastMeg);
+		if(lastMeg != null)
+			chattingService.saveLast(id,userId,lastMeg);
 		
-		JSONArray jo = null;
-		 if(new FileReader(fileRealLink).ready()) {
-			 obj = parser.parse(new FileReader(fileRealLink));
-			 jo = (JSONArray) obj;
-		 } else {
-			 jo = new JSONArray();
-		 }
-		 jo.add(jobj);
-		 FileWriter writer =  null;
-		   try {
-				 writer = new FileWriter(fileRealLink);
-				 writer.write(jo.toJSONString());		
-	       } catch (IOException e) {
-	           e.printStackTrace();
-	       } finally {
-				if (writer != null)
-					writer.close();
-				writer = null;
-	       }	
+		List<Member> members = chattingService.getMembers(id);
+		for (Member m : members) {
+			String fileName = m.getId()+id+".json";
+			String fileRealLink = realPath+File.separator+fileName;
+			JSONArray jo = null;
+			 if(new FileReader(fileRealLink).ready()) {
+				 obj = parser.parse(new FileReader(fileRealLink));
+				 jo = (JSONArray) obj;
+			 } else {
+				 jo = new JSONArray();
+			 }
+			 jo.add(jobj);
+			 FileWriter writer =  null;
+			   try {
+					 writer = new FileWriter(fileRealLink);
+					 writer.write(jo.toJSONString());		
+		       } catch (IOException e) {
+		           e.printStackTrace();
+		       } finally {
+					if (writer != null)
+						writer.close();
+					writer = null;
+		       }	
+		}
 	}
 	
 	@PostMapping("{id}/getmember") // 멤버정보 가져오기
