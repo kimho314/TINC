@@ -731,7 +731,7 @@ function pageLoad() {
 				</main>
 			</section>
 				`);
-
+				
 				for (let i = 0; i < data[0].length; i++) {
 					$("#blockedFriend").append(`
 				  <div class="flex friend">
@@ -742,8 +742,8 @@ function pageLoad() {
 				  <div class="child-flex" id="bFriendStatusMsg${data[0][i].id}"></div>
 	  
 				  <div class="child-flex">
-					 <input type="button" class="find-btn" value="추가" name="userIhaveblocked_addBtn_${i}" data-id="${data[0].id}" />
-					 <input type="button" class="find-btn" value="해제" name="userIhaveblocked_unBlockBtn_${i}" data-id="${data[0].id}"/>
+					 <input type="button" class="find-btn" value="추가" name="userIhaveblocked_addBtn_${i}" data-id="${data[0][i].id}" />
+					 <input type="button" class="find-btn" value="해제" name="userIhaveblocked_unBlockBtn_${i}" data-id="${data[0][i].id}"/>
 				  </div>
 				</div>
 				  `);
