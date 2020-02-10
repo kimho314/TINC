@@ -3,20 +3,30 @@ var isTitleChanged = false;
 window.addEventListener("load", function () {
 	addMemoCard();
 	showMemoCard();
+	closeMemoList();
 })
 
+function closeMemoList() {
+	let prevUrl = getCookie("prevUrl");
+	console.log("prevUrl: " + prevUrl);
+	$(".memo-list-bottom-wrapper > input").off("click").click((e) => {
+		delCookie("prevUrl");
+		location.replace(prevUrl);
+	});
+}
 
 function showMemoCard() {
+	console.log("show");
 	let pid = setInterval(function () {
 		$(".memo-card .memo-card-content .memo-card-content-textarea")
 			.off("click").click(function (e) {
 				e.preventDefault();
 				e.stopPropagation();
 
-
 				if (!isTitleChanged) {
 					let cardId = e.target.parentNode.previousElementSibling.children[1].value;
 					let url = "/memo/detail?cardId=" + cardId;
+					//console.log(url);
 					let oldUrl = window.location.pathname + window.location.search;
 
 					$.get(url, function (data) {

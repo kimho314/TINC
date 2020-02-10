@@ -37,13 +37,14 @@ window.addEventListener("load", function () {
         this.clearInterval(tid);
         delCookie("cardId");
         let url = "/memo/list";
-         $.get(url, function (data) {
-             //console.log(data);
-             let newDoc = document.open(url, "replace");
-             newDoc.write(data);
-             newDoc.close();
-             history.pushState(null, null, url);
-         });
+        let oldUrl = window.location.pathname + window.location.search;
+        $.get(url, function (data) {
+            //console.log(data);
+            let newDoc = document.open(oldUrl, "replace");
+            newDoc.write(data);
+            newDoc.close();
+            history.pushState(null, null, url);
+        });
     });
 
     // 팝업창 'x'머튼 클릭시 모든 팝업창 닫기
