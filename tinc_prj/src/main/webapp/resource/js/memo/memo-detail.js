@@ -6,7 +6,13 @@ window.addEventListener("load", function () {
     var memoDetailContentTextArea = document.querySelector(".memo-detail-content-textarea");
     var contentTextAreaHeight = memoDetailContentTextArea.getBoundingClientRect().height;
     cmaTextareaSize(contentTextAreaHeight);
-
+    
+    $(".memo-detail-content-textarea").change(()=>{
+    	console.log("textarea change");
+        cmaTextareaSize(contentTextAreaHeight);
+        
+    });
+    
     // 메모 공유가 완료되면 완료 창 띄우기
     if (getCookie("isShared") === "true") {
         $(".share-popup").fadeIn();
@@ -109,9 +115,14 @@ window.addEventListener("load", function () {
 /* content박스 내용에 맡게 길이 자동 조절 */
 function cmaTextareaSize(bsize) { // 기본사이즈
     var sTextarea = document.querySelector(".memo-detail-content-textarea");
-    var csize = (sTextarea.scrollHeight >= bsize) ? sTextarea.scrollHeight + "px" : bsize + "px";
-    sTextarea.style.height = bsize + "px";
-    sTextarea.style.height = csize;
+    console.log( sTextarea.scrollHeight);
+//    var csize = (sTextarea.scrollHeight >= bsize) ? sTextarea.scrollHeight + "px" : bsize + "px";
+//    sTextarea.style.height = bsize + "px";
+//    sTextarea.style.height = csize;
+    
+    $(".memo-detail-content-textarea").on('keydown keyup', function () {
+    	  $(this).height(1).height( $(this).prop('scrollHeight')+12 );	
+    	});
 }
 
 // 메모 변경 내용 저장
