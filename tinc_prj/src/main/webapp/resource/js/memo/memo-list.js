@@ -1,6 +1,11 @@
 var isTitleChanged = false;
 var prevUrl;
 
+$(function () {
+	addMemoCard();
+	showMemoCard();
+})
+
 window.addEventListener("load", function () {
 	addMemoCard();
 	showMemoCard();
