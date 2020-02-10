@@ -112,11 +112,11 @@ function pageLoad() {
 				$("#content").append(
 					`<link rel="stylesheet" href="/resource/css/setting/setting.css">
 				  <script src="/resource/js/setting/set.js"></script>
-				  <section class="wrapper">
+				  <section class="wrapper settingMain">
 				  <nav class="gnb">
 					  <button type="button" name="/memo/list" class="hrefBtn" title="메모장 이동" onclick="urlChange('/memo/list');buttomBtn();pageLoad();">MEMO</button>
 				  </nav>
-				  <main class="container settingMain">
+				  <main class="container">
   
 						<div id="setting-head">
 						  <span id="setting-title">설정</span>
