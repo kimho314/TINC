@@ -317,8 +317,14 @@
 }
 .chattingBox .chatting .megBox .message a,
 .chattingBox .chatting .megBox .message a i {
+  color: #fff;
+}
+
+.chattingBox .chatting .me .megBox .message a,
+.chattingBox .chatting .me .megBox .message a i {
   color: #818181;
 }
+
 .chattingBox .chatting .megBox .message a {
   font-size: 0.95rem;
 }
