@@ -85,7 +85,7 @@ function buttomBtn() {
 		<button type="button" class="btn bottombutton1" name="/member/friendList">
 		  <i class="fas fa-user" name="/member/friendList" onclick="$('.bottombutton1').trigger('click')">친구목록</i>
 		</button>
-		<button type="button" class="btn on bottombutton2" name="/chat/add">
+		<button type="button" class="btn on" onclick="location.href='/chat/add'">
 		  <span class="btn-chatadd" name="/chat/add" onclick="$('.bottombutton2').trigger('click')">
 			 <span class="hidden" name="/chat/add">채팅추가</span>
 			 <i class="fas fa-comments" name="/chat/add" onclick="$('.bottombutton2').trigger('click')"></i>
@@ -149,31 +149,31 @@ function pageLoad() {
   
 						  <div class="set-line">공개설정</div>
 							<div class="set-line onOff-button">아이디
-							  <div id="idOpenCheckBox" class="open-set-checkbox"></div>
+							  <div id="idOpenCheckBox" class="open-set-checkbox changeMyprofile"></div>
 							</div>
   
 							<div class="set-line onOff-button">전화번호
 							  <div class="open-set-checkbox">
-								  <div id="phoneNumOpenCheckBox" class="open-set-checkbox"></div>
+								  <div id="phoneNumOpenCheckBox" class="open-set-checkbox changeMyprofile"></div>
 							  </div>
 							</div>
   
 							<div class="set-line onOff-button">이메일
 							  <div class="open-set-checkbox">
-								  <div id="emailOpenCheckBox" class="open-set-checkbox"></div>
+								  <div id="emailOpenCheckBox" class="open-set-checkbox changeMyprofile"></div>
 							  </div>
 							</div>
   
 						  <div class="set-line">알림설정</div>
 							<div class="set-line onOff-button">채팅방 알림
 							  <div class="open-set-checkbox">
-								  <div id="chatAlarmCheckBox" class="open-set-checkbox"></div>
+								  <div id="chatAlarmCheckBox" class="open-set-checkbox changeMyprofile"></div>
 							  </div>
 							</div>
   
 							<div class="set-line onOff-button">메모 알림
 							  <div class="open-set-checkbox">
-								  <div id="memoAlarmCheckBox" class="open-set-checkbox"></div>
+								  <div id="memoAlarmCheckBox" class="open-set-checkbox changeMyprofile"></div>
 							  </div>
 							</div>
   
@@ -197,7 +197,7 @@ function pageLoad() {
 				if (data[0].idOpen == 0) {
 					$("#idOpenCheckBox").append(
 						`<input type="checkbox" id="idCheckbox" class="set-checkbox"/>
-					  <label for="idCheckbox" class="set-check"></label>`
+					  <label for="idCheckbox" class="set-check" onchange="updateSetting();"></label>`
 					);
 				} else if (data[0].idOpen == 1) {
 					$("#idOpenCheckBox").append(
@@ -307,7 +307,7 @@ function pageLoad() {
 						  </div>
 						  <div class="btn-area">
 							  <input type="button" name="/setting" class="btn" id="logout-cancle" value="취소" onclick="urlChange('/setting');buttomBtn();pageLoad();"/>
-							  <input type="button" name="/member/logout" class="btn" id="logout-ok" value="확인" onclick="urlChange('/member/logout');pageLoad();"/>
+							  <input type="button" name="/member/logout" class="btn" id="logout-ok" value="확인" onclick="location.href='/member/logout'"/>
 						  </div>
 						  <button type="button" name="/setting" class="btn-close fas fa-times" onclick="urlChange('/setting');buttomBtn();pageLoad();">닫기</button>
 					  </div>

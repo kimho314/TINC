@@ -51,6 +51,8 @@ $(function(){
 })
 
 function updateSetting(){
+    console.log("change");
+    
     // 정규식
     let regExpPhone = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
     let regExpEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;

@@ -97,7 +97,7 @@ public class Chatting {
 	
 	@GetMapping("add")
 	public String chatAdd() {
-		return "chatting/chat-add";
+		return "main";
 	}
 	
 	@PostMapping("add")
