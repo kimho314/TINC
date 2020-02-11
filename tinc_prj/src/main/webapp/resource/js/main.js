@@ -129,15 +129,15 @@ function pageLoad() {
 					<div id="setMyImg"></div>
 					</form>
   
-						<div><input id="myId" type="text" value="${data[0].nickName}"/></div>
-						<div><input id="myStatusMessage" type="text" placeholder="${data[0].statusMsg}" value=""/></div>
+						<div><input id="myId" class="changeMyprofile" type="text" value="${data[0].nickName}"/></div>
+						<div><input id="myStatusMessage" class="changeMyprofile" type="text" placeholder="${data[0].statusMsg}" value=""/></div>
 						<form id="setting-edit-form">
 						  <div class="set-line">이메일
-							<input id="settingEditEmail" type="text" placeholder="${data[0].email}" value=""/>
+							<input id="settingEditEmail" class="changeMyprofile" type="text" placeholder="${data[0].email}" value=""/>
 						  </div>
   
 						  <div class="set-line">전화번호
-							<input id="settingEditPhone" type="text" placeholder="${data[0].phoneNum}" value=""/>
+							<input id="settingEditPhone" class="changeMyprofile" type="text" placeholder="${data[0].phoneNum}" value=""/>
 						  </div>
   
 						  <div class="set-line">
