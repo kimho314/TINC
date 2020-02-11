@@ -524,11 +524,17 @@ public class Chatting {
 	public String getmemolist(@PathVariable Integer id, Principal principal,Integer memo) { 
 		String userId = principal.getName();
 		GroupMemoList gl = groupMemoListService.get(memo,userId);
-		List<MemoCard> list = memoCardService.getGroupMemoCardList(gl.getId());
+		
 		//System.out.println(gl.toString());
 		String json = "[]";
-		if(list.size()>1)
-			 json = new Gson().toJson(list);
+		List<MemoCard> list = null;
+		if(gl != null) {
+			if(memoCardService.getGroupMemoCardList(gl.getId()) == null)
+				return json;
+			list = memoCardService.getGroupMemoCardList(gl.getId());
+			if(list.size()>1) 
+				json = new Gson().toJson(list);
+		}
 		System.out.println("json:"+json);
 		return json;
 	}
