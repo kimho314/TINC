@@ -5,10 +5,8 @@ var state = "";
 
 $(function () {
 	$(".hrefBtn").click(function (e) {
-		console.log("click");
-		
 		// e.preventDefault();
-		console.log(e);
+		// console.log(e);
 		if (e.target.name != null) {
 			urlChange(e.target.name);
 		} else {
@@ -29,7 +27,6 @@ $(function () {
 		pageLoad();
 	});
 });
-
 
 function urlChange(path) {
 	console.log("urlChange");
