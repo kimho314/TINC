@@ -15,10 +15,10 @@
 <link rel="stylesheet" href="../../../resource/css/memo/memo-checklist.css" />
 <link rel="stylesheet" href="../../../resource/css/memo/memo-duedate.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="../../../resource/js/memo/CookieUtil.js"></script>
 <script src="../../../resource/js/memo/memo-duedate.js"></script>
 <script src="../../../resource/js/memo/memo-detail.js"></script>
 <script src="../../../resource/js/memo/memo-checklist.js"></script>
-<script src="../../../resource/js/memo/CookieUtil.js"></script>
 </head>
 
 <body>

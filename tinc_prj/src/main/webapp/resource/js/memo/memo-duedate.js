@@ -61,18 +61,18 @@ var initFlag = false;
 
 var tid;
 
-$(function(){
+$(function () {
 	cardId = getCookie("cardId");
-	console.log("init cardId:"+cardId);
+	//console.log("init cardId:"+cardId);
 })
 
 window.addEventListener("load", function (e) {
 	// get cardId cookie
 	cardId = getCookie("cardId");
-	if(cardId <= 0 || cardId == null || cardId == undefined){
+	if (cardId <= 0 || cardId == null || cardId == undefined) {
 		cardId = window.location.search.split("=")[1];
 	}
-	console.log(window.location.search.split("=")[1]);
+
 	// 삭제 버튼 클릭시 창 fadeout
 	$(".memo-duedate-popup .memo-duedate-btn-area .cancel-btn")
 		.off("click")
@@ -147,9 +147,9 @@ window.addEventListener("load", function (e) {
 				var duedateContainer = document.querySelector(
 					".memo-duedate-container"
 				)
-//				for (let i = 0; i < duedateContainer.children.length; i++) {
-//					$(duedateContainer.children).animate({ scrollTop: 0 });
-//				}
+				//				for (let i = 0; i < duedateContainer.children.length; i++) {
+				//					$(duedateContainer.children).animate({ scrollTop: 0 });
+				//				}
 
 				$(".memo-duedate-popup").fadeOut();
 				$(".popup").fadeOut();
@@ -177,7 +177,7 @@ window.addEventListener("load", function (e) {
 					let date = newDueDate[0] + "-" + newDueDate[1] + "-" + newDueDate[2];
 					let time = newDueDate[3] + ":" + newDueDate[4];
 					let isComplete = $(".memo-detail-duedate > input[name=\"duedate-complete\"]").val();
-					console.log("cardId:"+cardId);
+					console.log("cardId:" + cardId);
 					let sendDueDate = JSON.stringify({
 						id: 0,
 						date: date,
