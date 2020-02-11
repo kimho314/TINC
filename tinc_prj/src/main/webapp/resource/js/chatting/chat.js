@@ -165,6 +165,7 @@ exeChat= {
 	},
 	saveChat(jdata){
 		$.post(this.getDataUrl(1),{data:jdata},function(){},"json");
+		
 	},
 	getMenu(){
 		$.get(this.getDataUrl(4),function(data){
@@ -400,16 +401,15 @@ exeChat= {
   		
   		return JSON.stringify(message);  		
   	},
-	banMeg(memberId,nickname){
+	banMeg(exitId_,nickname){
   		let message ={
   				type:"banned", // info(날짜, 초대, 나가기), text, 이미지, 기타파일, 메모
   		  		chatId:this.chatId, // 채팅방 번호
   		  		memberId:this.memberId, // 보낸 아이디
-  		  		exitId : memberId, // 방 나간 아이디 
+  		  		exitId : exitId_, // 방 나간 아이디 
   		  		nickName:nickname, // 보낸 사람 닉네임
   		  		profileImg:"",  // 보낸사람 프로필사진
   		  		invitedId :"", // 초대된 아이디  
-  		  		exitId :"", // 방 나간 아이디 
   		  		content:"", // 텍스트, 메모
   		  		contentMode : "", // 텍스트 길 경우 
   		  		sharefile:"" // 공유된 파일 경로

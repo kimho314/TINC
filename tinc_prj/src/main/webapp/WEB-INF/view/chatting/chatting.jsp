@@ -126,7 +126,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <button class="btn-top">
                 <i class="fas fa-arrow-up">TOP</i>
               </button>
-              <form action="">
+              <form action="" onsubmit="return false">
                 <button type="button" class="btn-add">
                   <i class="fas fa-plus">채팅메뉴</i>
                 </button>
@@ -281,7 +281,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <script>
       let socket = null;
       $(function() {
-        socket = new WebSocket("ws://125.129.74.131:8080/chat"); //125.129.74.131
+        socket = new WebSocket("ws://125.129.74.131:8080/chat"); //192.168.0.47
         socket.onopen = function() {
           console.log("connection success");
           exeChat.setConfig(
@@ -303,6 +303,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           var obj = JSON.parse(e.data);
           chatParser.parseData(obj);
           $(".container").animate({scrollTop:$(".container")[0].scrollHeight},400);
+	  		if(obj.exitId == exeChat.memberId)
+	  			history.go(-1);
           exeChat.saveChat(e.data);
         };
         $("#send-meg").click(function() {
@@ -313,7 +315,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         	 if (e.which == 13){
         		 socket.send(exeChat.textMeg());
                  $("#sendChat").val("");
-      			}
+                 return false;
+      		 }
           });
         $(".chatInput .btn-add").click(function() {
           $(".sendMenu").toggle();
@@ -473,9 +476,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             break;
         }
       }
-      function ban(memberId, nickname) {
-        exeChat.ban(memberId);
-        socket.send(exeChat.banMeg(memberId, nickname));
+      function ban(exitId, nickname) {
+        exeChat.ban(exitId);
+        socket.send(exeChat.banMeg(exitId, nickname));
       }
       function rename() {
         var input = $("#chatTitle");

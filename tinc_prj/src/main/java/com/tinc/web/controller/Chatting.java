@@ -134,7 +134,9 @@ public class Chatting {
 		//String userId = "user2";		
 		//System.out.println("id"+id);
 		//System.out.println("TITLE"+tincChattingService.get(id, userId).getTitle());
-		ChattingRoom chattingroom = chattingService.get(id, userId);	
+		ChattingRoom chattingroom = chattingService.get(id, userId);
+		if(chattingroom == null)
+			return "redirect:list";
 		List<Member> list = chattingService.getMembers(id);
 		String type = "";
 		if(list.size()>2) type="G";
