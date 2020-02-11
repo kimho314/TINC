@@ -50,40 +50,15 @@ $(function(){
     })
 })
 
-// ------ 정규식 ------
-function emailEdit(){
-    let regExpEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    let emailInput = $("#settingEditEmail");
-    let email = $("#settingEditEmail").val();
-
-    emailInput.blur("input" ,function(){
-        if(email.match(regExpEmail) != null){
-           return email;
-        }else{
-            alert("적합하지 않은 이메일 형식입니다.");
-            return 0;
-        }
-    })
-}
-
-function phoneEdit(){
-    let regExpPhone = /(01[0|1|6|9|7])[-](\d{3}|\d{4})[-](\d{4}$)/g;
-    let phoneNumInput = $("#settingEditPhone");
-    let phone = $("#settingEditPhone").val();
-
-    phoneNumInput.blur("input" ,function(){
-        if(phone.match(regExpPhone) != null){
-        	return phone;
-        }else{
-            alert("적합하지 않은 전화번호 형식입니다.");
-            return 0;
-        }
-    })
-}
-
-
 function updateSetting(){
     console.log("change");
+    
+    // 정규식
+    let regExpPhone = /(01[0|1|6|9|7])[-](\d{3}|\d{4})[-](\d{4}$)/g;
+    let regExpEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+    let emailInput = $("#settingEditEmail");
+    let phoneNumInput = $("#settingEditPhone");
 
     let nickName = $("#myId").val();
     let statusMessage = $("#myStatusMessage").val();
@@ -97,11 +72,23 @@ function updateSetting(){
 
     let chatAlarm = $('input:checkbox[id="chattingCheckbox"]').is(":checked");
     let memoAlarm = $('input:checkbox[id="memoCheckbox"]').is(":checked");
+    
+    emailInput.blur("input" ,function(){
+        if(email.match(regExpEmail) != null){
 
-    let eck = emailEdit();
-    let pck = phoneEdit();
+        }else{
+            alert("적합하지 않은 이메일 형식입니다.");
+        }
+    })
 
-if(eck != 0 && pck != 0){
+    phoneNumInput.blur("input" ,function(){
+        if(phone.match(regExpPhone) != null){
+
+        }else{
+            alert("적합하지 않은 전화번호 형식입니다.");
+        }
+    })
+
     let setJSON = JSON.stringify({
         myId:nickName,
         myStatusMessage:statusMessage,
@@ -127,7 +114,6 @@ if(eck != 0 && pck != 0){
         	console.log(err);
         }
     });
-}    
 
 }
 //-----------------------------------------
