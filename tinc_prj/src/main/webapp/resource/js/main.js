@@ -579,7 +579,7 @@ function pageLoad() {
 			}
 		});
 	} else if (url == "/memo/list") {
-		createCookie("prevUrl", $(location).attr("pathname"));
+		createCookie("prevUrl", prevPage);
 		$.ajax({
 			url: "/jsonTinc/memo/list",
 			dataType: "json",
